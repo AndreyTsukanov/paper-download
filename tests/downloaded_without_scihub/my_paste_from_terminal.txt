@@ -1,0 +1,613 @@
+python3 -m grab.cli --out downdown --batch tests/test_papers.txt 
+[05/31/26 02:30:38] WARNING  No CORE API key provided. Searches may be rate-limited or return limited results.                       core.py:40
+                    WARNING  No DOAJ API key provided. Searches will use public access with rate limits (100 requests/hour). Get a   doaj.py:48
+                             free API key at: https://doaj.org/apply-for-api-key/                                                              
+grab batch: 19 citations -> downdown
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+                    WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:30:44] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:30:54] ERROR    Rate limited (429) after 3 attempts. Please wait before making more requests.                      semantic.py:203
+                    ERROR    Rate limited by Semantic Scholar API: Too many requests. Please wait before retrying.              semantic.py:320
+[05/31/26 02:30:56] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=10.1056%2Fnejmoa0802656&page=1&size=3                    
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=10.1056%2Fnejmoa0802656                      
+[05/31/26 02:30:57] INFO     Found 3 papers from OpenAIRE for query: Platinum-Based Chemotherapy plus Cetuximab in Head and     openaire.py:293
+                             Neck Cancer                                                                                                       
+[05/31/26 02:30:58] INFO     CORE search returned 3 papers for query: 10.1056/nejmoa0802656                                         core.py:146
+[05/31/26 02:31:08] INFO     CORE search returned 3 papers for query: Platinum-Based Chemotherapy plus Cetuximab in Head and Neck   core.py:146
+                             Cancer                                                                                                            
+[05/31/26 02:31:09] INFO     Europe PMC search returned 2 papers for query: 10.1056/nejmoa0802656                               europepmc.py:86
+                    INFO     HTTP Request: GET https://www.nejm.org/doi/pdf/10.1056/NEJMoa0802656?articleTools=true "HTTP/1.1   _client.py:1740
+                             403 Forbidden"                                                                                                    
+                    INFO     Direct download failed; retrying via proxy:                                                          server.py:317
+                             https://www.nejm.org/doi/pdf/10.1056/NEJMoa0802656?articleTools=true                                              
+[05/31/26 02:31:10] INFO     HTTP Request: GET https://www.nejm.org/doi/pdf/10.1056/NEJMoa0802656?articleTools=true "HTTP/1.1   _client.py:1740
+                             403 Forbidden"                                                                                                    
+[05/31/26 02:31:11] INFO     Europe PMC search returned 3 papers for query: Platinum-Based Chemotherapy plus Cetuximab in Head  europepmc.py:86
+                             and Neck Cancer                                                                                                   
+                    INFO     No PMC results found for query: 10.1056/nejmoa0802656                                                    pmc.py:66
+[05/31/26 02:31:13] INFO     HTTP Request: GET https://www.nejm.org/doi/pdf/10.1056/NEJMoa0802656?articleTools=true "HTTP/1.1   _client.py:1740
+                             403 Forbidden"                                                                                                    
+                    INFO     Direct download failed; retrying via proxy:                                                          server.py:317
+                             https://www.nejm.org/doi/pdf/10.1056/NEJMoa0802656?articleTools=true                                              
+[05/31/26 02:31:14] INFO     HTTP Request: GET https://www.nejm.org/doi/pdf/10.1056/NEJMoa0802656?articleTools=true "HTTP/1.1   _client.py:1740
+                             403 Forbidden"                                                                                                    
+[1/19] ✗ Vermorken J.B., Mesia R., Rivera F. et al. Platinum-based chemotherapy plus cetuximab in h
+  ✗ failed to download: Vermorken J.B., Mesia R., Rivera F. et al. Platinum-based chemotherapy plus cetuximab in head and neck cancer. N Engl J Med 2008;359:1116−27
+    - Download failed after OA fallback chain. Details: unpaywall: resolved OA URL but download failed
+    - matched 'Platinum-Based Chemotherapy plus Cetuximab in Head and Neck Cancer' (10.1056/nejmoa0802656) but not OA-downloadable (paywalled or not OA-indexed)
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+                    WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:31:20] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:31:30] ERROR    Rate limited (429) after 3 attempts. Please wait before making more requests.                      semantic.py:203
+                    ERROR    Rate limited by Semantic Scholar API: Too many requests. Please wait before retrying.              semantic.py:320
+[05/31/26 02:31:34] INFO     HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"                    _client.py:1025
+[05/31/26 02:31:35] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=10.1200%2Fjco.2012.30.15_suppl.5505&page=                
+                             1&size=3                                                                                                          
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=10.1200%2Fjco.2012.30.15_supp                
+                             l.5505                                                                                                            
+[05/31/26 02:31:36] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=Cetuximab%2C+docetaxel%2C+and+cisplatin+%                
+                             28TPEx%29+as+first-line+treatment+in+patients+with+recurrent+or+metastatic+%28R%2FM%29+squamous+ce                
+                             ll+carcinoma+of+the+head+and+neck+%28SCCHN%29%3A+Final+results+of+phase+II+trial+GORTEC+2008-03.&p                
+                             age=1&size=3                                                                                                      
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=Cetuximab%2C+docetaxel%2C+and                
+                             +cisplatin+%28TPEx%29+as+first-line+treatment+in+patients+with+recurrent+or+metastatic+%28R%2FM%29                
+                             +squamous+cell+carcinoma+of+the+head+and+neck+%28SCCHN%29%3A+Final+results+of+phase+II+trial+GORTE                
+                             C+2008-03.                                                                                                        
+[05/31/26 02:32:06] WARNING  CORE request timed out (attempt 1/3). Retrying in 1s                                                   core.py:121
+[05/31/26 02:32:38] ERROR    CORE search request error (status=None): HTTPSConnectionPool(host='api.core.ac.uk', port=443): Read    core.py:155
+                             timed out.                                                                                                        
+[05/31/26 02:32:40] INFO     CORE search returned 3 papers for query: Cetuximab, docetaxel, and cisplatin (TPEx) as first-line      core.py:146
+                             treatment in patients with recurrent or metastatic (R/M) squamous cell carcinoma of the head and neck             
+                             (SCCHN): Final results of phase II trial GORTEC 2008-03.                                                          
+                    INFO     Europe PMC search returned 0 papers for query: 10.1200/jco.2012.30.15_suppl.5505                   europepmc.py:86
+                    INFO     Europe PMC search returned 3 papers for query: Cetuximab, docetaxel, and cisplatin (TPEx) as       europepmc.py:86
+                             first-line treatment in patients with recurrent or metastatic (R/M) squamous cell carcinoma of the                
+                             head and neck (SCCHN): Final results of phase II trial GORTEC 2008-03.                                            
+[05/31/26 02:32:41] INFO     No PMC results found for query: 10.1200/jco.2012.30.15_suppl.5505                                        pmc.py:66
+[2/19] ✗ Guigay J, Fayette J, Dillies A-F, et al. Cetuximab, docetaxel, and cisplatin (TPEx) as fir
+  ✗ failed to download: Guigay J, Fayette J, Dillies A-F, et al. Cetuximab, docetaxel, and cisplatin (TPEx) as first-line treatment in patients with recurrent or metastatic (R/M) squamous cell carcinoma of the head and neck (SCCHN): Final results of phase II trial GORTEC 2008-03 [abstract]. J Clin Oncol 2012;30(suppl 15):Abstract 5505.
+    - Download failed after OA fallback chain. Details: unpaywall: no OA URL found (or PAPER_SEARCH_MCP_UNPAYWALL_EMAIL/UNPAYWALL_EMAIL missing)
+    - matched 'Cetuximab, docetaxel, and cisplatin (TPEx) as first-line treatment in patients with recurrent or metastatic (R/M) squamous cell carcinoma of the head and neck (SCCHN): Final results of phase II trial GORTEC 2008-03.' (10.1200/jco.2012.30.15_suppl.5505) but not OA-downloadable (paywalled or not OA-indexed)
+[05/31/26 02:32:42] WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+[05/31/26 02:32:43] WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:32:48] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:32:59] ERROR    Rate limited (429) after 3 attempts. Please wait before making more requests.                      semantic.py:203
+                    ERROR    Rate limited by Semantic Scholar API: Too many requests. Please wait before retrying.              semantic.py:320
+[05/31/26 02:33:01] INFO     HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"                    _client.py:1025
+[05/31/26 02:33:03] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=10.1200%2Fjco.2005.02.4646&page=1&size=3                 
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=10.1200%2Fjco.2005.02.4646                   
+[05/31/26 02:33:04] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=Phase+III+Randomized+Trial+of+Cisplatin+P                
+                             lus+Placebo+Compared+With+Cisplatin+Plus+Cetuximab+in+Metastatic%2FRecurrent+Head+and+Neck+Cancer%                
+                             3A+An+Eastern+Cooperative+Oncology+Group+Study&page=1&size=3                                                      
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=Phase+III+Randomized+Trial+of                
+                             +Cisplatin+Plus+Placebo+Compared+With+Cisplatin+Plus+Cetuximab+in+Metastatic%2FRecurrent+Head+and+                
+                             Neck+Cancer%3A+An+Eastern+Cooperative+Oncology+Group+Study                                                        
+[05/31/26 02:33:05] INFO     CORE search returned 3 papers for query: 10.1200/jco.2005.02.4646                                      core.py:146
+[05/31/26 02:33:35] WARNING  CORE request timed out (attempt 1/3). Retrying in 1s                                                   core.py:121
+[05/31/26 02:33:37] INFO     CORE search returned 0 papers for query: Phase III Randomized Trial of Cisplatin Plus Placebo Compared core.py:146
+                             With Cisplatin Plus Cetuximab in Metastatic/Recurrent Head and Neck Cancer: An Eastern Cooperative                
+                             Oncology Group Study                                                                                              
+                    INFO     Europe PMC search returned 1 papers for query: 10.1200/jco.2005.02.4646                            europepmc.py:86
+[05/31/26 02:33:38] INFO     Europe PMC search returned 3 papers for query: Phase III Randomized Trial of Cisplatin Plus        europepmc.py:86
+                             Placebo Compared With Cisplatin Plus Cetuximab in Metastatic/Recurrent Head and Neck Cancer: An                   
+                             Eastern Cooperative Oncology Group Study                                                                          
+[05/31/26 02:33:39] INFO     No PMC results found for query: 10.1200/jco.2005.02.4646                                                 pmc.py:66
+                    INFO     No PMC results found for query: Phase III Randomized Trial of Cisplatin Plus Placebo Compared With       pmc.py:66
+                             Cisplatin Plus Cetuximab in Metastatic/Recurrent Head and Neck Cancer: An Eastern Cooperative Oncology            
+                             Group Study                                                                                                       
+[3/19] ✗ Burtness B., Goldwasser M.A., Flood W. et al. Phase III randomized trial of cisplatin plus
+  ✗ failed to download: Burtness B., Goldwasser M.A., Flood W. et al. Phase III randomized trial of cisplatin plus placebo compared with cisplatin plus cetuximab in metastatic/recurrent head and neck cancer: an Eastern Cooperative Oncology Group study. J Clin Oncol 2005;23:8646−54
+    - Download failed after OA fallback chain. Details: unpaywall: no OA URL found (or PAPER_SEARCH_MCP_UNPAYWALL_EMAIL/UNPAYWALL_EMAIL missing)
+    - matched 'Phase III Randomized Trial of Cisplatin Plus Placebo Compared With Cisplatin Plus Cetuximab in Metastatic/Recurrent Head and Neck Cancer: An Eastern Cooperative Oncology Group Study' (10.1200/jco.2005.02.4646) but not OA-downloadable (paywalled or not OA-indexed)
+[05/31/26 02:33:40] WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+[05/31/26 02:34:10] ERROR    Error requesting API: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read timed    semantic.py:257
+                             out. (read timeout=30)                                                                                            
+                    ERROR    Semantic Scholar API error: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read    semantic.py:322
+                             timed out. (read timeout=30)                                                                                      
+[05/31/26 02:34:13] INFO     HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"                    _client.py:1025
+[4/19] ? Болотина Л.В., Владимирова Л.Ю., Деньгина Н.В., Кутукова С.И., Новик А.В., Романов И.С. Пр
+  ? ambiguous: Болотина Л.В., Владимирова Л.Ю., Деньгина Н.В., Кутукова С.И., Новик А.В., Романов И.С. Практические рекомендации по лекарственному лечению опухолей головы и шеи. Практические рекомендации RUSSCO, часть 1. Злокачественные опухоли, 2023 (том 13), #3s2, стр. 100–119.
+    candidates (pass a DOI/arXiv ID to pick one, or set GRAB_LLM_PROVIDER in .env):
+      [0.875] Практические рекомендации по лечению злокачественных опухолей головы и шеи  (10.18027/2224-5057-2020-10-3s2-06) [crossref]
+      [0.875] Практические рекомендации по лечению злокачественных опухолей головы и шеи  (10.18027/2224-5057-2022-12-3s2-94-112) [crossref]
+      [0.875] Практические рекомендации по лечению злокачественных опухолей головы и шеи  (10.18027/2224-5057-2021-11-3s2-06) [crossref]
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+[05/31/26 02:34:44] ERROR    Error requesting API: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read timed    semantic.py:257
+                             out. (read timeout=30)                                                                                            
+                    ERROR    Semantic Scholar API error: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read    semantic.py:322
+                             timed out. (read timeout=30)                                                                                      
+[05/31/26 02:34:45] INFO     HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"                    _client.py:1025
+[05/31/26 02:34:48] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=10.1016%2Fj.ijrobp.2015.12.250&page=1&siz                
+                             e=3                                                                                                               
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=10.1016%2Fj.ijrobp.2015.12.25                
+                             0                                                                                                                 
+[05/31/26 02:34:49] INFO     Found 1 papers from OpenAIRE for query: Evaluation of Weekly Paclitaxel, Carboplatin, and          openaire.py:293
+                             Cetuximab in Head and Neck Cancer Patients With Incurable Disease                                                 
+[05/31/26 02:34:50] INFO     CORE search returned 1 papers for query: 10.1016/j.ijrobp.2015.12.250                                  core.py:146
+[05/31/26 02:35:21] WARNING  CORE request timed out (attempt 1/3). Retrying in 1s                                                   core.py:121
+[05/31/26 02:35:25] WARNING  CORE request returned 429 (attempt 2/3). Retrying in 2s                                                 core.py:91
+[05/31/26 02:35:28] WARNING  CORE request returned 429 (attempt 3/3). Retrying in 4s                                                 core.py:91
+[05/31/26 02:35:32] INFO     Europe PMC search returned 0 papers for query: 10.1016/j.ijrobp.2015.12.250                        europepmc.py:86
+[05/31/26 02:35:33] INFO     Europe PMC search returned 3 papers for query: Evaluation of Weekly Paclitaxel, Carboplatin, and   europepmc.py:86
+                             Cetuximab in Head and Neck Cancer Patients With Incurable Disease                                                 
+                    INFO     No PMC results found for query: 10.1016/j.ijrobp.2015.12.250                                             pmc.py:66
+[05/31/26 02:35:35] INFO     HTTP Request: GET http://www.redjournal.org/article/S0360301615270885/pdf "HTTP/1.1 301 Moved      _client.py:1740
+                             Permanently"                                                                                                      
+                    INFO     HTTP Request: GET https://www.redjournal.org/article/S0360301615270885/pdf "HTTP/1.1 403           _client.py:1740
+                             Forbidden"                                                                                                        
+                    INFO     Direct download failed; retrying via proxy: http://www.redjournal.org/article/S0360301615270885/pdf  server.py:317
+                    INFO     HTTP Request: GET http://www.redjournal.org/article/S0360301615270885/pdf "HTTP/1.1 301 Moved      _client.py:1740
+                             Permanently"                                                                                                      
+[05/31/26 02:35:36] INFO     HTTP Request: GET https://www.redjournal.org/article/S0360301615270885/pdf "HTTP/1.1 403           _client.py:1740
+                             Forbidden"                                                                                                        
+[5/19] ✗ Narveson L, Kathol E, Rockey M, Henry D, Grauer D, Neupane P.Evaluation of weekly paclitax
+  ✗ failed to download: Narveson L, Kathol E, Rockey M, Henry D, Grauer D, Neupane P.Evaluation of weekly paclitaxel, carboplatin, and cetuximab in head and neck cancer patients with incurable disease. Med Oncol.2016 Oct;33(10):107.
+    - Download failed after OA fallback chain. Details: unpaywall: resolved OA URL but download failed
+    - matched 'Evaluation of Weekly Paclitaxel, Carboplatin, and Cetuximab in Head and Neck Cancer Patients With Incurable Disease' (10.1016/j.ijrobp.2015.12.250) but not OA-downloadable (paywalled or not OA-indexed)
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+[05/31/26 02:36:06] ERROR    Error requesting API: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read timed    semantic.py:257
+                             out. (read timeout=30)                                                                                            
+                    ERROR    Semantic Scholar API error: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read    semantic.py:322
+                             timed out. (read timeout=30)                                                                                      
+[05/31/26 02:36:07] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=10.1200%2Fjco.2005.01.057&page=1&size=3                  
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=10.1200%2Fjco.2005.01.057                    
+[05/31/26 02:36:10] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=Randomized+Phase+III+Evaluation+of+Cispla                
+                             tin+Plus+Fluorouracil+Versus+Cisplatin+Plus+Paclitaxel+in+Advanced+Head+and+Neck+Cancer+%28E1395%2                
+                             9%3A+An+Intergroup+Trial+of+the+Eastern+Cooperative+Oncology+Group&page=1&size=3                                  
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=Randomized+Phase+III+Evaluati                
+                             on+of+Cisplatin+Plus+Fluorouracil+Versus+Cisplatin+Plus+Paclitaxel+in+Advanced+Head+and+Neck+Cance                
+                             r+%28E1395%29%3A+An+Intergroup+Trial+of+the+Eastern+Cooperative+Oncology+Group                                    
+                    WARNING  CORE request returned 429 (attempt 1/3). Retrying in 1s                                                 core.py:91
+[05/31/26 02:36:11] WARNING  CORE request returned 429 (attempt 2/3). Retrying in 2s                                                 core.py:91
+[05/31/26 02:36:13] WARNING  CORE request returned 429 (attempt 3/3). Retrying in 4s                                                 core.py:91
+[05/31/26 02:36:17] WARNING  CORE request returned 429 (attempt 1/3). Retrying in 1s                                                 core.py:91
+[05/31/26 02:36:21] WARNING  CORE request returned 429 (attempt 2/3). Retrying in 2s                                                 core.py:91
+[05/31/26 02:36:27] WARNING  CORE request returned 429 (attempt 3/3). Retrying in 4s                                                 core.py:91
+[05/31/26 02:36:32] INFO     Europe PMC search returned 1 papers for query: 10.1200/jco.2005.01.057                             europepmc.py:86
+[05/31/26 02:36:33] INFO     Europe PMC search returned 3 papers for query: Randomized Phase III Evaluation of Cisplatin Plus   europepmc.py:86
+                             Fluorouracil Versus Cisplatin Plus Paclitaxel in Advanced Head and Neck Cancer (E1395): An                        
+                             Intergroup Trial of the Eastern Cooperative Oncology Group                                                        
+[05/31/26 02:36:34] INFO     No PMC results found for query: 10.1200/jco.2005.01.057                                                  pmc.py:66
+                    INFO     No PMC results found for query: Randomized Phase III Evaluation of Cisplatin Plus Fluorouracil Versus    pmc.py:66
+                             Cisplatin Plus Paclitaxel in Advanced Head and Neck Cancer (E1395): An Intergroup Trial of the Eastern            
+                             Cooperative Oncology Group                                                                                        
+[6/19] ✗ Gibson MK, Li Y, Murphy B, et al. Randomized phase III evaluation of cisplatin plus fluoro
+  ✗ failed to download: Gibson MK, Li Y, Murphy B, et al. Randomized phase III evaluation of cisplatin plus fluorouracil versus cisplatin plus paclitaxel in advanced head and neck cancer (E1395): an intergroup trial of the Eastern Cooperative Oncology Group. J Clin Oncol 2005;23:3562-3567
+    - Download failed after OA fallback chain. Details: unpaywall: no OA URL found (or PAPER_SEARCH_MCP_UNPAYWALL_EMAIL/UNPAYWALL_EMAIL missing)
+    - matched 'Randomized Phase III Evaluation of Cisplatin Plus Fluorouracil Versus Cisplatin Plus Paclitaxel in Advanced Head and Neck Cancer (E1395): An Intergroup Trial of the Eastern Cooperative Oncology Group' (10.1200/jco.2005.01.057) but not OA-downloadable (paywalled or not OA-indexed)
+[05/31/26 02:36:35] WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+                    WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:36:41] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:36:52] ERROR    Semantic Scholar search error: 'data'                                                              semantic.py:353
+[05/31/26 02:36:53] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=10.1200%2Fjco.1992.10.8.1245&page=1&size=                
+                             3                                                                                                                 
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=10.1200%2Fjco.1992.10.8.1245                 
+[05/31/26 02:36:54] INFO     Found 1 papers from OpenAIRE for query: Randomized comparison of cisplatin plus fluorouracil and   openaire.py:293
+                             carboplatin plus fluorouracil versus methotrexate in advanced squamous-cell carcinoma of the head                 
+                             and neck: a Southwest Oncology Group study.                                                                       
+[05/31/26 02:37:24] WARNING  CORE request timed out (attempt 1/3). Retrying in 1s                                                   core.py:121
+[05/31/26 02:37:25] WARNING  CORE request returned 429 (attempt 2/3). Retrying in 2s                                                 core.py:91
+[05/31/26 02:37:28] WARNING  CORE request returned 429 (attempt 3/3). Retrying in 4s                                                 core.py:91
+[05/31/26 02:37:32] WARNING  CORE request returned 429 (attempt 1/3). Retrying in 1s                                                 core.py:91
+[05/31/26 02:37:33] WARNING  CORE request returned 429 (attempt 2/3). Retrying in 2s                                                 core.py:91
+[05/31/26 02:37:35] WARNING  CORE request returned 429 (attempt 3/3). Retrying in 4s                                                 core.py:91
+[05/31/26 02:37:40] INFO     Europe PMC search returned 1 papers for query: 10.1200/jco.1992.10.8.1245                          europepmc.py:86
+[05/31/26 02:37:41] INFO     Europe PMC search returned 3 papers for query: Randomized comparison of cisplatin plus             europepmc.py:86
+                             fluorouracil and carboplatin plus fluorouracil versus methotrexate in advanced squamous-cell                      
+                             carcinoma of the head and neck: a Southwest Oncology Group study.                                                 
+                    INFO     No PMC results found for query: 10.1200/jco.1992.10.8.1245                                               pmc.py:66
+[05/31/26 02:37:42] INFO     No PMC results found for query: Randomized comparison of cisplatin plus fluorouracil and carboplatin     pmc.py:66
+                             plus fluorouracil versus methotrexate in advanced squamous-cell carcinoma of the head and neck: a                 
+                             Southwest Oncology Group study.                                                                                   
+[7/19] ✗ Forastiere A.A., Metch B., Schuller D.E. et al. Randomized comparison of cisplatin plus fl
+  ✗ failed to download: Forastiere A.A., Metch B., Schuller D.E. et al. Randomized comparison of cisplatin plus fluorouracil and carboplatin plus fluorouracil versus methotrexate in advanced squamous-cell carcinoma of the head and neck: a Southwest Oncology Group study. J Clin Oncol 1992;10:1245−51
+    - Download failed after OA fallback chain. Details: unpaywall: no OA URL found (or PAPER_SEARCH_MCP_UNPAYWALL_EMAIL/UNPAYWALL_EMAIL missing)
+    - matched 'Randomized comparison of cisplatin plus fluorouracil and carboplatin plus fluorouracil versus methotrexate in advanced squamous-cell carcinoma of the head and neck: a Southwest Oncology Group study.' (10.1200/jco.1992.10.8.1245) but not OA-downloadable (paywalled or not OA-indexed)
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+[05/31/26 02:37:43] WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:37:48] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:37:59] ERROR    Rate limited (429) after 3 attempts. Please wait before making more requests.                      semantic.py:203
+                    ERROR    Rate limited by Semantic Scholar API: Too many requests. Please wait before retrying.              semantic.py:320
+[05/31/26 02:38:00] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=10.1023%2Fa%3A1008355315205&page=1&size=3                
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=10.1023%2Fa%3A1008355315205                  
+[05/31/26 02:38:01] INFO     Found 1 papers from OpenAIRE for query: Phase II study of docetaxel and cisplatin in patients with openaire.py:293
+                             recurrent or disseminated squamous-cell carcinoma of the head and neck                                            
+                    WARNING  CORE request returned 429 (attempt 1/3). Retrying in 1s                                                 core.py:91
+[05/31/26 02:38:02] WARNING  CORE request returned 429 (attempt 2/3). Retrying in 2s                                                 core.py:91
+[05/31/26 02:38:04] WARNING  CORE request returned 429 (attempt 3/3). Retrying in 4s                                                 core.py:91
+[05/31/26 02:38:09] WARNING  CORE request returned 429 (attempt 1/3). Retrying in 1s                                                 core.py:91
+[05/31/26 02:38:10] WARNING  CORE request returned 429 (attempt 2/3). Retrying in 2s                                                 core.py:91
+[05/31/26 02:38:42] WARNING  CORE request timed out (attempt 3/3). Retrying in 4s                                                   core.py:121
+[05/31/26 02:38:46] INFO     Europe PMC search returned 1 papers for query: 10.1023/a:1008355315205                             europepmc.py:86
+[05/31/26 02:38:47] INFO     Europe PMC search returned 3 papers for query: Phase II study of docetaxel and cisplatin in        europepmc.py:86
+                             patients with recurrent or disseminated squamous-cell carcinoma of the head and neck                              
+                    INFO     No PMC results found for query: 10.1023/a:1008355315205                                                  pmc.py:66
+[05/31/26 02:38:49] INFO     HTTP Request: GET https://doi.org/10.1023/a:1008355315205 "HTTP/1.1 302 Found"                     _client.py:1740
+[05/31/26 02:38:50] INFO     HTTP Request: GET https://linkinghub.elsevier.com/retrieve/pii/S0923753419553923 "HTTP/1.1 200 "   _client.py:1740
+                    WARNING  Resolved URL is not a PDF: https://doi.org/10.1023/a:1008355315205                                   server.py:280
+                             (content-type=text/html;charset=utf-8, starts=b'\n\n\n\n\n\n\n\n\n<!DOCTYPE H')                                   
+                    INFO     Direct download failed; retrying via proxy: https://doi.org/10.1023/a:1008355315205                  server.py:317
+[05/31/26 02:38:51] INFO     HTTP Request: GET https://doi.org/10.1023/a:1008355315205 "HTTP/1.1 302 Found"                     _client.py:1740
+[05/31/26 02:38:52] INFO     HTTP Request: GET https://linkinghub.elsevier.com/retrieve/pii/S0923753419553923 "HTTP/1.1 200 "   _client.py:1740
+                    WARNING  Resolved URL is not a PDF: https://doi.org/10.1023/a:1008355315205                                   server.py:280
+                             (content-type=text/html;charset=utf-8, starts=b'\n\n\n\n\n\n\n\n\n<!DOCTYPE H')                                   
+[8/19] ✗ Specht L, Larsen SK, Hansen HS Phase II study of docetaxel and cisplatin in patients with 
+  ✗ failed to download: Specht L, Larsen SK, Hansen HS Phase II study of docetaxel and cisplatin in patients with recurrent or disseminated squamous-cell carcinoma of the head and neck. .Ann Oncol. 2000 Jul;11(7):845-9.
+    - Download failed after OA fallback chain. Details: unpaywall: resolved OA URL but download failed
+    - matched 'Phase II study of docetaxel and cisplatin in patients with recurrent or disseminated squamous-cell carcinoma of the head and neck' (10.1023/a:1008355315205) but not OA-downloadable (paywalled or not OA-indexed)
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+                    WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:38:58] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:39:08] ERROR    Rate limited (429) after 3 attempts. Please wait before making more requests.                      semantic.py:203
+                    ERROR    Rate limited by Semantic Scholar API: Too many requests. Please wait before retrying.              semantic.py:320
+[05/31/26 02:39:10] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=10.1056%2Fnejmoa1602252&page=1&size=3                    
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=10.1056%2Fnejmoa1602252                      
+                    INFO     Found 3 papers from OpenAIRE for query: Nivolumab for Recurrent Squamous-Cell Carcinoma of the     openaire.py:293
+                             Head and Neck                                                                                                     
+[05/31/26 02:39:11] INFO     CORE search returned 1 papers for query: 10.1056/nejmoa1602252                                         core.py:146
+                    INFO     CORE search returned 2 papers for query: Nivolumab for Recurrent Squamous-Cell Carcinoma of the Head   core.py:146
+                             and Neck                                                                                                          
+[05/31/26 02:39:12] INFO     Europe PMC search returned 2 papers for query: 10.1056/nejmoa1602252                               europepmc.py:86
+[05/31/26 02:39:13] INFO     HTTP Request: GET https://europepmc.org/articles/PMC5564292?pdf=render "HTTP/1.1 302 Found"        _client.py:1740
+[05/31/26 02:39:14] INFO     HTTP Request: GET https://europepmc.org/api/getPdf?pmcid=PMC5564292 "HTTP/1.1 500 "                _client.py:1740
+                    INFO     Direct download failed; retrying via proxy: https://europepmc.org/articles/PMC5564292?pdf=render     server.py:317
+[05/31/26 02:39:15] INFO     HTTP Request: GET https://europepmc.org/articles/PMC5564292?pdf=render "HTTP/1.1 302 Found"        _client.py:1740
+[05/31/26 02:39:17] INFO     HTTP Request: GET https://europepmc.org/api/getPdf?pmcid=PMC5564292 "HTTP/1.1 500 "                _client.py:1740
+[05/31/26 02:39:18] INFO     Europe PMC search returned 3 papers for query: Nivolumab for Recurrent Squamous-Cell Carcinoma of  europepmc.py:86
+                             the Head and Neck                                                                                                 
+[05/31/26 02:39:19] INFO     HTTP Request: GET https://europepmc.org/articles/PMC5564292?pdf=render "HTTP/1.1 302 Found"        _client.py:1740
+[05/31/26 02:39:20] INFO     HTTP Request: GET https://europepmc.org/api/getPdf?pmcid=PMC5564292 "HTTP/1.1 500 "                _client.py:1740
+                    INFO     Direct download failed; retrying via proxy: https://europepmc.org/articles/PMC5564292?pdf=render     server.py:317
+[05/31/26 02:39:22] INFO     HTTP Request: GET https://europepmc.org/articles/PMC5564292?pdf=render "HTTP/1.1 302 Found"        _client.py:1740
+[05/31/26 02:39:23] INFO     HTTP Request: GET https://europepmc.org/api/getPdf?pmcid=PMC5564292 "HTTP/1.1 500 "                _client.py:1740
+[05/31/26 02:39:24] INFO     HTTP Request: GET https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5564292/pdf/ "HTTP/1.1 301 Moved    _client.py:1740
+                             Permanently"                                                                                                      
+[05/31/26 02:39:25] INFO     HTTP Request: GET https://pmc.ncbi.nlm.nih.gov/articles/PMC5564292/pdf/ "HTTP/1.1 301 Moved        _client.py:1740
+                             Permanently"                                                                                                      
+                    INFO     HTTP Request: GET https://pmc.ncbi.nlm.nih.gov/articles/PMC5564292/pdf/nihms893611.pdf "HTTP/1.1   _client.py:1740
+                             200 OK"                                                                                                           
+                    WARNING  Resolved URL is not a PDF: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5564292/pdf/                 server.py:280
+                             (content-type=text/html; charset=utf-8, starts=b'\n\n\n\n<html>\n  <head>\n')                                     
+                    INFO     Direct download failed; retrying via proxy:                                                          server.py:317
+                             https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5564292/pdf/                                                         
+                    WARNING  URL download failed for https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5564292/pdf/ (proxy=True): 403  server.py:296
+                             Forbidden                                                                                                         
+[05/31/26 02:39:27] INFO     HTTP Request: GET http://hdl.handle.net/2434/484716 "HTTP/1.1 302 Found"                           _client.py:1740
+[05/31/26 02:39:28] INFO     HTTP Request: GET https://air.unimi.it/handle/2434/484716 "HTTP/1.1 403 Forbidden"                 _client.py:1740
+                    INFO     Direct download failed; retrying via proxy: http://hdl.handle.net/2434/484716                        server.py:317
+                    INFO     HTTP Request: GET http://hdl.handle.net/2434/484716 "HTTP/1.1 302 Found"                           _client.py:1740
+[05/31/26 02:39:31] INFO     HTTP Request: GET https://air.unimi.it/handle/2434/484716 "HTTP/1.1 200 OK"                        _client.py:1740
+[05/31/26 02:39:32] INFO     HTTP Request: GET https://air.unimi.it/bitstream/2434/484716/6/nihms893611.pdf "HTTP/1.1 200 OK"   _client.py:1740
+[9/19] ✓ Ferris R., Blumenschein G., Fayette J. et al. Nivolumab for recurrent squamous-cell carcin
+  ✓ downdown/unpaywall_10.1056_nejmoa1602252.pdf (640 KB)
+    matched: Nivolumab for Recurrent Squamous-Cell Carcinoma of the Head and Neck  [crossref, conf=1.0, fuzzy]
+    verify: verified (title/author found in PDF text)
+[05/31/26 02:39:33] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=10.1016%2Fs0140-6736%2818%2931999-8&page=                
+                             1&size=3                                                                                                          
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=10.1016%2Fs0140-6736%2818%293                
+                             1999-8                                                                                                            
+[05/31/26 02:40:04] WARNING  CORE request timed out (attempt 1/3). Retrying in 1s                                                   core.py:121
+[05/31/26 02:40:27] INFO     CORE search returned 3 papers for query: 10.1016/s0140-6736(18)31999-8                                 core.py:146
+                    INFO     Europe PMC search returned 2 papers for query: 10.1016/s0140-6736(18)31999-8                       europepmc.py:86
+[05/31/26 02:40:29] INFO     HTTP Request: GET http://hdl.handle.net/2078.1/212774 "HTTP/1.1 302 Found"                         _client.py:1740
+[05/31/26 02:40:30] INFO     HTTP Request: GET https://hdl.handle.net/2078.5/125024 "HTTP/1.1 302 Found"                        _client.py:1740
+[05/31/26 02:40:31] INFO     HTTP Request: GET https://research.dial.uclouvain.be/handle/2078.5/125024 "HTTP/1.1 500 Internal   _client.py:1740
+                             Server Error"                                                                                                     
+                    INFO     Direct download failed; retrying via proxy: http://hdl.handle.net/2078.1/212774                      server.py:317
+                    INFO     HTTP Request: GET http://hdl.handle.net/2078.1/212774 "HTTP/1.1 302 Found"                         _client.py:1740
+[05/31/26 02:40:32] INFO     HTTP Request: GET https://hdl.handle.net/2078.5/125024 "HTTP/1.1 302 Found"                        _client.py:1740
+[05/31/26 02:40:34] INFO     HTTP Request: GET https://research.dial.uclouvain.be/handle/2078.5/125024 "HTTP/1.1 500 Internal   _client.py:1740
+                             Server Error"                                                                                                     
+[10/19] ✗ Сohen, E. E. W., Soulières, D., Le Tourneau, C., et al. (2018). Pembrolizumab versus metho
+  ✗ failed to download: Сohen, E. E. W., Soulières, D., Le Tourneau, C., et al. (2018). Pembrolizumab versus methotrexate, docetaxel, or cetuximab for recurrent or metastatic head-and-neck squamous cell carcinoma (KEYNOTE-040): a randomised, open-label, phase 3 study. The Lancet. doi:10.1016/s0140-6736(18)31999-8
+    - Download failed after OA fallback chain. Details: unpaywall: resolved OA URL but download failed
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+[05/31/26 02:41:04] ERROR    Error requesting API: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read timed    semantic.py:257
+                             out. (read timeout=30)                                                                                            
+                    ERROR    Semantic Scholar API error: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read    semantic.py:322
+                             timed out. (read timeout=30)                                                                                      
+[05/31/26 02:41:05] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=10.1200%2Fjco.2016.68.1478&page=1&size=3                 
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=10.1200%2Fjco.2016.68.1478                   
+[05/31/26 02:41:06] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=Antitumor+Activity+of+Pembrolizumab+in+Bi                
+                             omarker-Unselected+Patients+With+Recurrent+and%2For+Metastatic+Head+and+Neck+Squamous+Cell+Carcino                
+                             ma%3A+Results+From+the+Phase+Ib+KEYNOTE-012+Expansion+Cohort&page=1&size=3                                        
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=Antitumor+Activity+of+Pembrol                
+                             izumab+in+Biomarker-Unselected+Patients+With+Recurrent+and%2For+Metastatic+Head+and+Neck+Squamous+                
+                             Cell+Carcinoma%3A+Results+From+the+Phase+Ib+KEYNOTE-012+Expansion+Cohort                                          
+[05/31/26 02:41:37] ERROR    CORE search request error (status=None): HTTPSConnectionPool(host='api.core.ac.uk', port=443): Read    core.py:155
+                             timed out.                                                                                                        
+[05/31/26 02:41:38] INFO     CORE search returned 0 papers for query: Antitumor Activity of Pembrolizumab in Biomarker-Unselected   core.py:146
+                             Patients With Recurrent and/or Metastatic Head and Neck Squamous Cell Carcinoma: Results From the                 
+                             Phase Ib KEYNOTE-012 Expansion Cohort                                                                             
+[05/31/26 02:41:39] INFO     Europe PMC search returned 1 papers for query: 10.1200/jco.2016.68.1478                            europepmc.py:86
+[05/31/26 02:41:41] INFO     HTTP Request: GET https://europepmc.org/articles/PMC6804896?pdf=render "HTTP/1.1 302 Found"        _client.py:1740
+[05/31/26 02:41:42] INFO     HTTP Request: GET https://europepmc.org/api/getPdf?pmcid=PMC6804896 "HTTP/1.1 200 "                _client.py:1740
+[11/19] ✓ Сhow L.Q., Haddad R., Gupta S. et al. Antitumor activity of pembrolizumab in biomarker-uns
+  ✓ downdown/europepmc_PMID_27646946.pdf (747 KB)
+    matched: Antitumor Activity of Pembrolizumab in Biomarker-Unselected Patients With Recurrent and/or Metastatic Head and Neck Squamous Cell Carcinoma: Results From the Phase Ib KEYNOTE-012 Expansion Cohort  [crossref, conf=1.0, fuzzy]
+    verify: verified (title/author found in PDF text)
+[05/31/26 02:41:43] WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+                    WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:41:49] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:41:59] ERROR    Rate limited (429) after 3 attempts. Please wait before making more requests.                      semantic.py:203
+                    ERROR    Rate limited by Semantic Scholar API: Too many requests. Please wait before retrying.              semantic.py:320
+[05/31/26 02:42:00] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=10.1200%2Fjco.2018.36.15_suppl.3062&page=                
+                             1&size=3                                                                                                          
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=10.1200%2Fjco.2018.36.15_supp                
+                             l.3062                                                                                                            
+[05/31/26 02:42:01] INFO     Found 1 papers from OpenAIRE for query: A six-weekly (Q6W) dosing schedule for pembrolizumab based openaire.py:293
+                             on an exposure-response (E-R) evaluation using modeling and simulation.                                           
+                    INFO     CORE search returned 1 papers for query: 10.1200/jco.2018.36.15_suppl.3062                             core.py:146
+[05/31/26 02:42:31] WARNING  CORE request timed out (attempt 1/3). Retrying in 1s                                                   core.py:121
+[05/31/26 02:42:34] INFO     CORE search returned 3 papers for query: A six-weekly (Q6W) dosing schedule for pembrolizumab based on core.py:146
+                             an exposure-response (E-R) evaluation using modeling and simulation.                                              
+[05/31/26 02:42:35] INFO     Europe PMC search returned 0 papers for query: 10.1200/jco.2018.36.15_suppl.3062                   europepmc.py:86
+-*/^[[H\[=-09876t5r4ewq[05/31/26 02:42:37] INFO     Europe PMC search returned 3 papers for query: A six-weekly (Q6W) dosing schedule for              europepmc.py:86
+                             pembrolizumab based on an exposure-response (E-R) evaluation using modeling and simulation.                       
+sdftgyhujkl;'                    INFO     No PMC results found for query: 10.1200/jco.2018.36.15_suppl.3062                                        pmc.py:66
+
+^[[F^[[B^[[2~^[[3~[05/31/26 02:42:38] INFO     No PMC results found for query: A six-weekly (Q6W) dosing schedule for pembrolizumab based on an         pmc.py:66
+                             exposure-response (E-R) evaluation using modeling and simulation.                                                 
+[12/19] ✗ Lala M, Li M, Sinha V, de Alwis D, Chartash E, Jain L. A six-weekly (Q6W) dosing schedule 
+  ✗ failed to download: Lala M, Li M, Sinha V, de Alwis D, Chartash E, Jain L. A six-weekly (Q6W) dosing schedule for pembrolizumab based on an exposure-response (E-R) evaluation using modeling and simulation. J Clin Oncol. 2018;36 (suppl; abstr 306)
+    - Download failed after OA fallback chain. Details: unpaywall: no OA URL found (or PAPER_SEARCH_MCP_UNPAYWALL_EMAIL/UNPAYWALL_EMAIL missing)
+    - matched 'A six-weekly (Q6W) dosing schedule for pembrolizumab based on an exposure-response (E-R) evaluation using modeling and simulation.' (10.1200/jco.2018.36.15_suppl.3062) but not OA-downloadable (paywalled or not OA-indexed)
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+Acfghuj^[[F^[[2~[05/31/26 02:42:39] INFO     Processing paper 1/1                                                                               semantic.py:345
+[05/31/26 02:42:42] INFO     HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"                    _client.py:1025
+[13/19] ? Burtness B, Harrington KJ, Greil R, et al. Pembrolizumab alone or with chemotherapy versus
+  ? ambiguous: Burtness B, Harrington KJ, Greil R, et al. Pembrolizumab alone or with chemotherapy versus cetuximab with chemotherapy for recurrent or metastatic squamous cell carcinoma of the head and neck (KEYNOTE-048): a randomised, open-label, phase 3 study. Lancet 2019;394:1915-1928
+    candidates (pass a DOI/arXiv ID to pick one, or set GRAB_LLM_PROVIDER in .env):
+      [0.688] Phase 3 trial of pembrolizumab as a first-line treatment in subjects with recurrent/metastatic head and neck squamous cell carcinoma: KEYNOTE-048  (10.1093/annonc/mdv514.01) [crossref]
+      [0.6] Pembrolizumab with or without chemotherapy versus cetuximab plus chemotherapy to treat recurrent or metastatic head and neck squamous cell carcinoma: An updated KEYNOTE-048 based cost-effectiveness analysis  (10.1016/j.oraloncology.2022.105871) [crossref]
+      [0.571] 201 Carboplatin, paclitaxel and pembrolizumab for the first line treatment of recurrent and/or metastatic head and neck squamous cell carcinoma  (10.1136/jitc-2020-sitc2020.0201) [semantic]
+      [0.522] Faculty Opinions recommendation of Pembrolizumab Alone or With Chemotherapy for Recurrent/Metastatic Head and Neck Squamous Cell Carcinoma in KEYNOTE-048: Subgroup Analysis by Programmed Death Ligand-1 Combined Positive Score.  (10.3410/f.741913720.793599653) [crossref]
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+                    WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:42:48] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:42:58] ERROR    Rate limited (429) after 3 attempts. Please wait before making more requests.                      semantic.py:203
+                    ERROR    Rate limited by Semantic Scholar API: Too many requests. Please wait before retrying.              semantic.py:320
+[05/31/26 02:43:03] INFO     HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"                    _client.py:1025
+[14/19] ? Al-Sarraf M, Metch B, Kish J, et al. Platinum analogs in recurrent and advanced head and n
+  ? ambiguous: Al-Sarraf M, Metch B, Kish J, et al. Platinum analogs in recurrent and advanced head and neck cancer: a Southwest Oncology Group and Wayne State University Study. Cancer Treat Rep 1987;71:723-726.
+    candidates (pass a DOI/arXiv ID to pick one, or set GRAB_LLM_PROVIDER in .env):
+      [0.667] The Wayne State University Experience with Adjuvant Chemotherapy of Head and Neck Cancer  (10.1016/s0889-8588(18)30409-x) [crossref]
+      [0.5] The activity of a single-agent 5-fluorouracil infusion in advanced and recurrent head and neck cancer  (10.1002/1097-0142(19860315)57:6<1105::aid-cncr2820570607>3.0.co;2-w) [crossref]
+      [0.4] Cisplatin and 5-fluorouracil infusion in patients with recurrent and disseminated epidermoid cancer of the head and neck  (10.1002/1097-0142(19840501)53:9<1819::aid-cncr2820530903>3.0.co;2-r) [crossref]
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+[05/31/26 02:43:33] ERROR    Error requesting API: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read timed    semantic.py:257
+                             out. (read timeout=30)                                                                                            
+                    ERROR    Semantic Scholar API error: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read    semantic.py:322
+                             timed out. (read timeout=30)                                                                                      
+[05/31/26 02:43:35] INFO     HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"                    _client.py:1025
+[05/31/26 02:43:37] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=10.3109%2F00016480802590451&page=1&size=3                
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=10.3109%2F00016480802590451                  
+[05/31/26 02:43:38] INFO     Found 1 papers from OpenAIRE for query: Weekly paclitaxel for platin-resistant stage IV head and   openaire.py:293
+                             neck cancer patients                                                                                              
+                    INFO     CORE search returned 1 papers for query: 10.3109/00016480802590451                                     core.py:146
+[05/31/26 02:44:08] WARNING  CORE request timed out (attempt 1/3). Retrying in 1s                                                   core.py:121
+[05/31/26 02:44:10] INFO     CORE search returned 3 papers for query: Weekly paclitaxel for platin-resistant stage IV head and neck core.py:146
+                             cancer patients                                                                                                   
+[05/31/26 02:44:11] INFO     Europe PMC search returned 1 papers for query: 10.3109/00016480802590451                           europepmc.py:86
+                    INFO     Europe PMC search returned 3 papers for query: Weekly paclitaxel for platin-resistant stage IV     europepmc.py:86
+                             head and neck cancer patients                                                                                     
+                    INFO     No PMC results found for query: 10.3109/00016480802590451                                                pmc.py:66
+[15/19] ✗ Grau J.J., Caballero M., Verger E. et al. Weekly paclitaxel for platin-resistant stage IV 
+  ✗ failed to download: Grau J.J., Caballero M., Verger E. et al. Weekly paclitaxel for platin-resistant stage IV head and neck cancer patients. Acta Otolaryngol 2009;129:1294−9
+    - Download failed after OA fallback chain. Details: unpaywall: no OA URL found (or PAPER_SEARCH_MCP_UNPAYWALL_EMAIL/UNPAYWALL_EMAIL missing)
+    - matched 'Weekly paclitaxel for platin-resistant stage IV head and neck cancer patients' (10.3109/00016480802590451) but not OA-downloadable (paywalled or not OA-indexed)
+[05/31/26 02:44:13] WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+[05/31/26 02:44:43] ERROR    Error requesting API: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read timed    semantic.py:257
+                             out. (read timeout=30)                                                                                            
+                    ERROR    Semantic Scholar API error: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read    semantic.py:322
+                             timed out. (read timeout=30)                                                                                      
+[05/31/26 02:44:46] INFO     HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"                    _client.py:1025
+[05/31/26 02:44:47] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=10.1200%2Fjco.2006.06.7447&page=1&size=3                 
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=10.1200%2Fjco.2006.06.7447                   
+[05/31/26 02:44:48] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=Open-Label%2C+Uncontrolled%2C+Multicenter                
+                             +Phase+II+Study+to+Evaluate+the+Efficacy+and+Toxicity+of+Cetuximab+As+a+Single+Agent+in+Patients+W                
+                             ith+Recurrent+and%2For+Metastatic+Squamous+Cell+Carcinoma+of+the+Head+and+Neck+Who+Failed+to+Respo                
+                             nd+to+Platinum-Based+Therapy&page=1&size=3                                                                        
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=Open-Label%2C+Uncontrolled%2C                
+                             +Multicenter+Phase+II+Study+to+Evaluate+the+Efficacy+and+Toxicity+of+Cetuximab+As+a+Single+Agent+i                
+                             n+Patients+With+Recurrent+and%2For+Metastatic+Squamous+Cell+Carcinoma+of+the+Head+and+Neck+Who+Fai                
+                             led+to+Respond+to+Platinum-Based+Therapy                                                                          
+[05/31/26 02:44:49] WARNING  CORE request returned 429 (attempt 1/3). Retrying in 1s                                                 core.py:91
+[05/31/26 02:44:50] WARNING  CORE request returned 429 (attempt 2/3). Retrying in 2s                                                 core.py:91
+[05/31/26 02:45:22] WARNING  CORE request timed out (attempt 3/3). Retrying in 4s                                                   core.py:121
+[05/31/26 02:45:28] INFO     CORE search returned 3 papers for query: Open-Label, Uncontrolled, Multicenter Phase II Study to       core.py:146
+                             Evaluate the Efficacy and Toxicity of Cetuximab As a Single Agent in Patients With Recurrent and/or               
+                             Metastatic Squamous Cell Carcinoma of the Head and Neck Who Failed to Respond to Platinum-Based                   
+                             Therapy                                                                                                           
+                    INFO     Europe PMC search returned 1 papers for query: 10.1200/jco.2006.06.7447                            europepmc.py:86
+                    INFO     Europe PMC search returned 3 papers for query: Open-Label, Uncontrolled, Multicenter Phase II      europepmc.py:86
+                             Study to Evaluate the Efficacy and Toxicity of Cetuximab As a Single Agent in Patients With                       
+                             Recurrent and/or Metastatic Squamous Cell Carcinoma of the Head and Neck Who Failed to Respond to                 
+                             Platinum-Based Therapy                                                                                            
+[05/31/26 02:45:29] INFO     No PMC results found for query: 10.1200/jco.2006.06.7447                                                 pmc.py:66
+[05/31/26 02:45:31] INFO     HTTP Request: GET https://ascopubs.org/doi/pdfdirect/10.1200/JCO.2006.06.7447?role=tab "HTTP/1.1   _client.py:1740
+                             403 Forbidden"                                                                                                    
+                    INFO     Direct download failed; retrying via proxy:                                                          server.py:317
+                             https://ascopubs.org/doi/pdfdirect/10.1200/JCO.2006.06.7447?role=tab                                              
+                    INFO     HTTP Request: GET https://ascopubs.org/doi/pdfdirect/10.1200/JCO.2006.06.7447?role=tab "HTTP/1.1   _client.py:1740
+                             403 Forbidden"                                                                                                    
+[16/19] ✗ Vermorken J.B., Trigo J., Hitt R. et al. Open-label, uncontrolled, multicenter phase II st
+  ✗ failed to download: Vermorken J.B., Trigo J., Hitt R. et al. Open-label, uncontrolled, multicenter phase II study to evaluate the efficacy and toxicity of cetuximab as a single agent in patients with recurrent and/or metastatic squamous cell carcinoma of the head and neck who failed to respond to platinum-based therapy. J Clin Oncol 2007;25:2171−7
+    - Download failed after OA fallback chain. Details: unpaywall: resolved OA URL but download failed
+    - matched 'Open-Label, Uncontrolled, Multicenter Phase II Study to Evaluate the Efficacy and Toxicity of Cetuximab As a Single Agent in Patients With Recurrent and/or Metastatic Squamous Cell Carcinoma of the Head and Neck Who Failed to Respond to Platinum-Based Therapy' (10.1200/jco.2006.06.7447) but not OA-downloadable (paywalled or not OA-indexed)
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+[05/31/26 02:45:32] WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:45:37] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:45:48] ERROR    Rate limited (429) after 3 attempts. Please wait before making more requests.                      semantic.py:203
+                    ERROR    Rate limited by Semantic Scholar API: Too many requests. Please wait before retrying.              semantic.py:320
+[05/31/26 02:45:50] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=10.1056%2Fnejmoa1602252&page=1&size=3                    
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=10.1056%2Fnejmoa1602252                      
+[05/31/26 02:45:51] INFO     Found 3 papers from OpenAIRE for query: Nivolumab for Recurrent Squamous-Cell Carcinoma of the     openaire.py:293
+                             Head and Neck                                                                                                     
+[05/31/26 02:45:52] INFO     CORE search returned 1 papers for query: 10.1056/nejmoa1602252                                         core.py:146
+[05/31/26 02:46:22] WARNING  CORE request timed out (attempt 1/3). Retrying in 1s                                                   core.py:121
+[05/31/26 02:46:23] WARNING  CORE request returned 429 (attempt 2/3). Retrying in 2s                                                 core.py:91
+[05/31/26 02:46:25] WARNING  CORE request returned 429 (attempt 3/3). Retrying in 4s                                                 core.py:91
+[05/31/26 02:46:30] INFO     Europe PMC search returned 2 papers for query: 10.1056/nejmoa1602252                               europepmc.py:86
+[05/31/26 02:46:31] INFO     HTTP Request: GET https://europepmc.org/articles/PMC5564292?pdf=render "HTTP/1.1 302 Found"        _client.py:1740
+[05/31/26 02:46:39] INFO     HTTP Request: GET https://europepmc.org/api/getPdf?pmcid=PMC5564292 "HTTP/1.1 500 "                _client.py:1740
+                    INFO     Direct download failed; retrying via proxy: https://europepmc.org/articles/PMC5564292?pdf=render     server.py:317
+[05/31/26 02:46:40] INFO     HTTP Request: GET https://europepmc.org/articles/PMC5564292?pdf=render "HTTP/1.1 302 Found"        _client.py:1740
+[05/31/26 02:46:41] INFO     HTTP Request: GET https://europepmc.org/api/getPdf?pmcid=PMC5564292 "HTTP/1.1 500 "                _client.py:1740
+                    INFO     Europe PMC search returned 3 papers for query: Nivolumab for Recurrent Squamous-Cell Carcinoma of  europepmc.py:86
+                             the Head and Neck                                                                                                 
+[05/31/26 02:47:11] WARNING  URL download failed for https://europepmc.org/articles/PMC5564292?pdf=render (proxy=False):          server.py:296
+                    INFO     Direct download failed; retrying via proxy: https://europepmc.org/articles/PMC5564292?pdf=render     server.py:317
+[05/31/26 02:47:13] INFO     HTTP Request: GET https://europepmc.org/articles/PMC5564292?pdf=render "HTTP/1.1 302 Found"        _client.py:1740
+[05/31/26 02:47:16] INFO     HTTP Request: GET https://europepmc.org/api/getPdf?pmcid=PMC5564292 "HTTP/1.1 500 "                _client.py:1740
+[05/31/26 02:47:18] INFO     HTTP Request: GET https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5564292/pdf/ "HTTP/1.1 301 Moved    _client.py:1740
+                             Permanently"                                                                                                      
+                    INFO     HTTP Request: GET https://pmc.ncbi.nlm.nih.gov/articles/PMC5564292/pdf/ "HTTP/1.1 301 Moved        _client.py:1740
+                             Permanently"                                                                                                      
+                    INFO     HTTP Request: GET https://pmc.ncbi.nlm.nih.gov/articles/PMC5564292/pdf/nihms893611.pdf "HTTP/1.1   _client.py:1740
+                             200 OK"                                                                                                           
+                    WARNING  Resolved URL is not a PDF: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5564292/pdf/                 server.py:280
+                             (content-type=text/html; charset=utf-8, starts=b'\n\n\n\n<html>\n  <head>\n')                                     
+                    INFO     Direct download failed; retrying via proxy:                                                          server.py:317
+                             https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5564292/pdf/                                                         
+[05/31/26 02:47:19] WARNING  URL download failed for https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5564292/pdf/ (proxy=True): 403  server.py:296
+                             Forbidden                                                                                                         
+[05/31/26 02:47:21] INFO     HTTP Request: GET http://hdl.handle.net/2434/484716 "HTTP/1.1 302 Found"                           _client.py:1740
+                    INFO     HTTP Request: GET https://air.unimi.it/handle/2434/484716 "HTTP/1.1 403 Forbidden"                 _client.py:1740
+                    INFO     Direct download failed; retrying via proxy: http://hdl.handle.net/2434/484716                        server.py:317
+[05/31/26 02:47:22] INFO     HTTP Request: GET http://hdl.handle.net/2434/484716 "HTTP/1.1 302 Found"                           _client.py:1740
+[05/31/26 02:47:23] INFO     HTTP Request: GET https://air.unimi.it/handle/2434/484716 "HTTP/1.1 200 OK"                        _client.py:1740
+[05/31/26 02:47:24] INFO     HTTP Request: GET https://air.unimi.it/bitstream/2434/484716/6/nihms893611.pdf "HTTP/1.1 200 OK"   _client.py:1740
+[17/19] ✓ Ferris R., Blumenschein G., Fayette J. et al. Nivolumab for recurrent squamous-cell carcin
+  ✓ downdown/unpaywall_10.1056_nejmoa1602252.pdf (640 KB)
+    matched: Nivolumab for Recurrent Squamous-Cell Carcinoma of the Head and Neck  [crossref, conf=1.0, fuzzy]
+    verify: verified (title/author found in PDF text)
+[05/31/26 02:47:26] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=10.21037%2Fatm.2019.01.46&page=1&size=3                  
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=10.21037%2Fatm.2019.01.46                    
+                    WARNING  CORE request returned 429 (attempt 1/3). Retrying in 1s                                                 core.py:91
+[05/31/26 02:47:27] WARNING  CORE request returned 429 (attempt 2/3). Retrying in 2s                                                 core.py:91
+[05/31/26 02:47:29] WARNING  CORE request returned 429 (attempt 3/3). Retrying in 4s                                                 core.py:91
+[05/31/26 02:47:34] INFO     Europe PMC search returned 1 papers for query: 10.21037/atm.2019.01.46                             europepmc.py:86
+                    INFO     HTTP Request: GET https://europepmc.org/articles/PMC6462627?pdf=render "HTTP/1.1 302 Found"        _client.py:1740
+[05/31/26 02:47:40] INFO     HTTP Request: GET https://europepmc.org/api/getPdf?pmcid=PMC6462627 "HTTP/1.1 200 "                _client.py:1740
+[18/19] ✓ Ye W., Schmitt, N. C. (2019). Pembrolizumab for recurrent/metastatic head and neck cancer:
+  ✓ downdown/europepmc_PMID_31032295.pdf (116 KB)
+    verify: verified (title/author found in PDF text)
+[05/31/26 02:47:41] WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+[05/31/26 02:47:42] WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:47:47] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:47:57] ERROR    Rate limited (429) after 3 attempts. Please wait before making more requests.                      semantic.py:203
+                    ERROR    Rate limited by Semantic Scholar API: Too many requests. Please wait before retrying.              semantic.py:320
+[05/31/26 02:47:58] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=10.1016%2Fs1470-2045%2815%2970124-5&page=                
+                             1&size=3                                                                                                          
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=10.1016%2Fs1470-2045%2815%297                
+                             0124-5                                                                                                            
+[05/31/26 02:47:59] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=Afatinib+versus+methotrexate+as+second-li                
+                             ne+treatment+in+patients+with+recurrent+or+metastatic+squamous-cell+carcinoma+of+the+head+and+neck                
+                             +progressing+on+or+after+platinum-based+therapy+%28LUX-Head+%26+Neck+1%29%3A+an+open-label%2C+rand                
+                             omised+phase+3+trial&page=1&size=3                                                                                
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=Afatinib+versus+methotrexate+                
+                             as+second-line+treatment+in+patients+with+recurrent+or+metastatic+squamous-cell+carcinoma+of+the+h                
+                             ead+and+neck+progressing+on+or+after+platinum-based+therapy+%28LUX-Head+%26+Neck+1%29%3A+an+open-l                
+                             abel%2C+randomised+phase+3+trial                                                                                  
+                    WARNING  CORE request returned 429 (attempt 1/3). Retrying in 1s                                                 core.py:91
+[05/31/26 02:48:01] WARNING  CORE request returned 429 (attempt 2/3). Retrying in 2s                                                 core.py:91
+[05/31/26 02:48:03] WARNING  CORE request returned 429 (attempt 3/3). Retrying in 4s                                                 core.py:91
+[05/31/26 02:48:07] WARNING  CORE request returned 429 (attempt 1/3). Retrying in 1s                                                 core.py:91
+[05/31/26 02:48:08] WARNING  CORE request returned 429 (attempt 2/3). Retrying in 2s                                                 core.py:91
+[05/31/26 02:48:40] WARNING  CORE request timed out (attempt 3/3). Retrying in 4s                                                   core.py:121
+[05/31/26 02:48:44] INFO     Europe PMC search returned 1 papers for query: 10.1016/s1470-2045(15)70124-5                       europepmc.py:86
+[05/31/26 02:48:45] INFO     Europe PMC search returned 3 papers for query: Afatinib versus methotrexate as second-line         europepmc.py:86
+                             treatment in patients with recurrent or metastatic squamous-cell carcinoma of the head and neck                   
+                             progressing on or after platinum-based therapy (LUX-Head & Neck 1): an open-label, randomised                     
+                             phase 3 trial                                                                                                     
+                    INFO     No PMC results found for query: 10.1016/s1470-2045(15)70124-5                                            pmc.py:66
+[19/19] ✗ Machiels J.P., Haddad R.I., Fayette J. et al. Afatinib versus methotrexate as second-line 
+  ✗ failed to download: Machiels J.P., Haddad R.I., Fayette J. et al. Afatinib versus methotrexate as second-line treatment in patients with recurrent or metastatic squamous-cell carcinoma of the head and neck progressing on or after platinum-based therapy (LUX-Head & Neck 1): an open-label, randomised phase 3 trial. Lancet Oncol 2015;16:583−94s
+    - Download failed after OA fallback chain. Details: unpaywall: no OA URL found (or PAPER_SEARCH_MCP_UNPAYWALL_EMAIL/UNPAYWALL_EMAIL missing)
+    - matched 'Afatinib versus methotrexate as second-line treatment in patients with recurrent or metastatic squamous-cell carcinoma of the head and neck progressing on or after platinum-based therapy (LUX-Head & Neck 1): an open-label, randomised phase 3 trial' (10.1016/s1470-2045(15)70124-5) but not OA-downloadable (paywalled or not OA-indexed)
+=== done: downloaded 4/19 · ambiguous 3 · failed 12 ===
+(log: downdown/run.log · manifest: downdown/manifest.jsonl)

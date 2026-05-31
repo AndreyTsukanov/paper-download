@@ -1,0 +1,83 @@
+grab batch: 19 citations -> downdown
+[1/19] ✗ Vermorken J.B., Mesia R., Rivera F. et al. Platinum-based chemotherapy plus cetuximab in h
+  ✗ failed to download: Vermorken J.B., Mesia R., Rivera F. et al. Platinum-based chemotherapy plus cetuximab in head and neck cancer. N Engl J Med 2008;359:1116−27
+    - Download failed after OA fallback chain. Details: unpaywall: resolved OA URL but download failed
+    - matched 'Platinum-Based Chemotherapy plus Cetuximab in Head and Neck Cancer' (10.1056/nejmoa0802656) but not OA-downloadable (paywalled or not OA-indexed)
+[2/19] ✗ Guigay J, Fayette J, Dillies A-F, et al. Cetuximab, docetaxel, and cisplatin (TPEx) as fir
+  ✗ failed to download: Guigay J, Fayette J, Dillies A-F, et al. Cetuximab, docetaxel, and cisplatin (TPEx) as first-line treatment in patients with recurrent or metastatic (R/M) squamous cell carcinoma of the head and neck (SCCHN): Final results of phase II trial GORTEC 2008-03 [abstract]. J Clin Oncol 2012;30(suppl 15):Abstract 5505.
+    - Download failed after OA fallback chain. Details: unpaywall: no OA URL found (or PAPER_SEARCH_MCP_UNPAYWALL_EMAIL/UNPAYWALL_EMAIL missing)
+    - matched 'Cetuximab, docetaxel, and cisplatin (TPEx) as first-line treatment in patients with recurrent or metastatic (R/M) squamous cell carcinoma of the head and neck (SCCHN): Final results of phase II trial GORTEC 2008-03.' (10.1200/jco.2012.30.15_suppl.5505) but not OA-downloadable (paywalled or not OA-indexed)
+[3/19] ✗ Burtness B., Goldwasser M.A., Flood W. et al. Phase III randomized trial of cisplatin plus
+  ✗ failed to download: Burtness B., Goldwasser M.A., Flood W. et al. Phase III randomized trial of cisplatin plus placebo compared with cisplatin plus cetuximab in metastatic/recurrent head and neck cancer: an Eastern Cooperative Oncology Group study. J Clin Oncol 2005;23:8646−54
+    - Download failed after OA fallback chain. Details: unpaywall: no OA URL found (or PAPER_SEARCH_MCP_UNPAYWALL_EMAIL/UNPAYWALL_EMAIL missing)
+    - matched 'Phase III Randomized Trial of Cisplatin Plus Placebo Compared With Cisplatin Plus Cetuximab in Metastatic/Recurrent Head and Neck Cancer: An Eastern Cooperative Oncology Group Study' (10.1200/jco.2005.02.4646) but not OA-downloadable (paywalled or not OA-indexed)
+[4/19] ? Болотина Л.В., Владимирова Л.Ю., Деньгина Н.В., Кутукова С.И., Новик А.В., Романов И.С. Пр
+  ? ambiguous: Болотина Л.В., Владимирова Л.Ю., Деньгина Н.В., Кутукова С.И., Новик А.В., Романов И.С. Практические рекомендации по лекарственному лечению опухолей головы и шеи. Практические рекомендации RUSSCO, часть 1. Злокачественные опухоли, 2023 (том 13), #3s2, стр. 100–119.
+    candidates (pass a DOI/arXiv ID to pick one, or set GRAB_LLM_PROVIDER in .env):
+      [0.875] Практические рекомендации по лечению злокачественных опухолей головы и шеи  (10.18027/2224-5057-2020-10-3s2-06) [crossref]
+      [0.875] Практические рекомендации по лечению злокачественных опухолей головы и шеи  (10.18027/2224-5057-2022-12-3s2-94-112) [crossref]
+      [0.875] Практические рекомендации по лечению злокачественных опухолей головы и шеи  (10.18027/2224-5057-2021-11-3s2-06) [crossref]
+[5/19] ✗ Narveson L, Kathol E, Rockey M, Henry D, Grauer D, Neupane P.Evaluation of weekly paclitax
+  ✗ failed to download: Narveson L, Kathol E, Rockey M, Henry D, Grauer D, Neupane P.Evaluation of weekly paclitaxel, carboplatin, and cetuximab in head and neck cancer patients with incurable disease. Med Oncol.2016 Oct;33(10):107.
+    - Download failed after OA fallback chain. Details: unpaywall: resolved OA URL but download failed
+    - matched 'Evaluation of Weekly Paclitaxel, Carboplatin, and Cetuximab in Head and Neck Cancer Patients With Incurable Disease' (10.1016/j.ijrobp.2015.12.250) but not OA-downloadable (paywalled or not OA-indexed)
+[6/19] ✗ Gibson MK, Li Y, Murphy B, et al. Randomized phase III evaluation of cisplatin plus fluoro
+  ✗ failed to download: Gibson MK, Li Y, Murphy B, et al. Randomized phase III evaluation of cisplatin plus fluorouracil versus cisplatin plus paclitaxel in advanced head and neck cancer (E1395): an intergroup trial of the Eastern Cooperative Oncology Group. J Clin Oncol 2005;23:3562-3567
+    - Download failed after OA fallback chain. Details: unpaywall: no OA URL found (or PAPER_SEARCH_MCP_UNPAYWALL_EMAIL/UNPAYWALL_EMAIL missing)
+    - matched 'Randomized Phase III Evaluation of Cisplatin Plus Fluorouracil Versus Cisplatin Plus Paclitaxel in Advanced Head and Neck Cancer (E1395): An Intergroup Trial of the Eastern Cooperative Oncology Group' (10.1200/jco.2005.01.057) but not OA-downloadable (paywalled or not OA-indexed)
+[7/19] ✗ Forastiere A.A., Metch B., Schuller D.E. et al. Randomized comparison of cisplatin plus fl
+  ✗ failed to download: Forastiere A.A., Metch B., Schuller D.E. et al. Randomized comparison of cisplatin plus fluorouracil and carboplatin plus fluorouracil versus methotrexate in advanced squamous-cell carcinoma of the head and neck: a Southwest Oncology Group study. J Clin Oncol 1992;10:1245−51
+    - Download failed after OA fallback chain. Details: unpaywall: no OA URL found (or PAPER_SEARCH_MCP_UNPAYWALL_EMAIL/UNPAYWALL_EMAIL missing)
+    - matched 'Randomized comparison of cisplatin plus fluorouracil and carboplatin plus fluorouracil versus methotrexate in advanced squamous-cell carcinoma of the head and neck: a Southwest Oncology Group study.' (10.1200/jco.1992.10.8.1245) but not OA-downloadable (paywalled or not OA-indexed)
+[8/19] ✗ Specht L, Larsen SK, Hansen HS Phase II study of docetaxel and cisplatin in patients with 
+  ✗ failed to download: Specht L, Larsen SK, Hansen HS Phase II study of docetaxel and cisplatin in patients with recurrent or disseminated squamous-cell carcinoma of the head and neck. .Ann Oncol. 2000 Jul;11(7):845-9.
+    - Download failed after OA fallback chain. Details: unpaywall: resolved OA URL but download failed
+    - matched 'Phase II study of docetaxel and cisplatin in patients with recurrent or disseminated squamous-cell carcinoma of the head and neck' (10.1023/a:1008355315205) but not OA-downloadable (paywalled or not OA-indexed)
+[9/19] ✓ Ferris R., Blumenschein G., Fayette J. et al. Nivolumab for recurrent squamous-cell carcin
+  ✓ downdown/unpaywall_10.1056_nejmoa1602252.pdf (640 KB)
+    matched: Nivolumab for Recurrent Squamous-Cell Carcinoma of the Head and Neck  [crossref, conf=1.0, fuzzy]
+    verify: verified (title/author found in PDF text)
+[10/19] ✗ Сohen, E. E. W., Soulières, D., Le Tourneau, C., et al. (2018). Pembrolizumab versus metho
+  ✗ failed to download: Сohen, E. E. W., Soulières, D., Le Tourneau, C., et al. (2018). Pembrolizumab versus methotrexate, docetaxel, or cetuximab for recurrent or metastatic head-and-neck squamous cell carcinoma (KEYNOTE-040): a randomised, open-label, phase 3 study. The Lancet. doi:10.1016/s0140-6736(18)31999-8
+    - Download failed after OA fallback chain. Details: unpaywall: resolved OA URL but download failed
+[11/19] ✓ Сhow L.Q., Haddad R., Gupta S. et al. Antitumor activity of pembrolizumab in biomarker-uns
+  ✓ downdown/europepmc_PMID_27646946.pdf (747 KB)
+    matched: Antitumor Activity of Pembrolizumab in Biomarker-Unselected Patients With Recurrent and/or Metastatic Head and Neck Squamous Cell Carcinoma: Results From the Phase Ib KEYNOTE-012 Expansion Cohort  [crossref, conf=1.0, fuzzy]
+    verify: verified (title/author found in PDF text)
+[12/19] ✗ Lala M, Li M, Sinha V, de Alwis D, Chartash E, Jain L. A six-weekly (Q6W) dosing schedule 
+  ✗ failed to download: Lala M, Li M, Sinha V, de Alwis D, Chartash E, Jain L. A six-weekly (Q6W) dosing schedule for pembrolizumab based on an exposure-response (E-R) evaluation using modeling and simulation. J Clin Oncol. 2018;36 (suppl; abstr 306)
+    - Download failed after OA fallback chain. Details: unpaywall: no OA URL found (or PAPER_SEARCH_MCP_UNPAYWALL_EMAIL/UNPAYWALL_EMAIL missing)
+    - matched 'A six-weekly (Q6W) dosing schedule for pembrolizumab based on an exposure-response (E-R) evaluation using modeling and simulation.' (10.1200/jco.2018.36.15_suppl.3062) but not OA-downloadable (paywalled or not OA-indexed)
+[13/19] ? Burtness B, Harrington KJ, Greil R, et al. Pembrolizumab alone or with chemotherapy versus
+  ? ambiguous: Burtness B, Harrington KJ, Greil R, et al. Pembrolizumab alone or with chemotherapy versus cetuximab with chemotherapy for recurrent or metastatic squamous cell carcinoma of the head and neck (KEYNOTE-048): a randomised, open-label, phase 3 study. Lancet 2019;394:1915-1928
+    candidates (pass a DOI/arXiv ID to pick one, or set GRAB_LLM_PROVIDER in .env):
+      [0.688] Phase 3 trial of pembrolizumab as a first-line treatment in subjects with recurrent/metastatic head and neck squamous cell carcinoma: KEYNOTE-048  (10.1093/annonc/mdv514.01) [crossref]
+      [0.6] Pembrolizumab with or without chemotherapy versus cetuximab plus chemotherapy to treat recurrent or metastatic head and neck squamous cell carcinoma: An updated KEYNOTE-048 based cost-effectiveness analysis  (10.1016/j.oraloncology.2022.105871) [crossref]
+      [0.571] 201 Carboplatin, paclitaxel and pembrolizumab for the first line treatment of recurrent and/or metastatic head and neck squamous cell carcinoma  (10.1136/jitc-2020-sitc2020.0201) [semantic]
+      [0.522] Faculty Opinions recommendation of Pembrolizumab Alone or With Chemotherapy for Recurrent/Metastatic Head and Neck Squamous Cell Carcinoma in KEYNOTE-048: Subgroup Analysis by Programmed Death Ligand-1 Combined Positive Score.  (10.3410/f.741913720.793599653) [crossref]
+[14/19] ? Al-Sarraf M, Metch B, Kish J, et al. Platinum analogs in recurrent and advanced head and n
+  ? ambiguous: Al-Sarraf M, Metch B, Kish J, et al. Platinum analogs in recurrent and advanced head and neck cancer: a Southwest Oncology Group and Wayne State University Study. Cancer Treat Rep 1987;71:723-726.
+    candidates (pass a DOI/arXiv ID to pick one, or set GRAB_LLM_PROVIDER in .env):
+      [0.667] The Wayne State University Experience with Adjuvant Chemotherapy of Head and Neck Cancer  (10.1016/s0889-8588(18)30409-x) [crossref]
+      [0.5] The activity of a single-agent 5-fluorouracil infusion in advanced and recurrent head and neck cancer  (10.1002/1097-0142(19860315)57:6<1105::aid-cncr2820570607>3.0.co;2-w) [crossref]
+      [0.4] Cisplatin and 5-fluorouracil infusion in patients with recurrent and disseminated epidermoid cancer of the head and neck  (10.1002/1097-0142(19840501)53:9<1819::aid-cncr2820530903>3.0.co;2-r) [crossref]
+[15/19] ✗ Grau J.J., Caballero M., Verger E. et al. Weekly paclitaxel for platin-resistant stage IV 
+  ✗ failed to download: Grau J.J., Caballero M., Verger E. et al. Weekly paclitaxel for platin-resistant stage IV head and neck cancer patients. Acta Otolaryngol 2009;129:1294−9
+    - Download failed after OA fallback chain. Details: unpaywall: no OA URL found (or PAPER_SEARCH_MCP_UNPAYWALL_EMAIL/UNPAYWALL_EMAIL missing)
+    - matched 'Weekly paclitaxel for platin-resistant stage IV head and neck cancer patients' (10.3109/00016480802590451) but not OA-downloadable (paywalled or not OA-indexed)
+[16/19] ✗ Vermorken J.B., Trigo J., Hitt R. et al. Open-label, uncontrolled, multicenter phase II st
+  ✗ failed to download: Vermorken J.B., Trigo J., Hitt R. et al. Open-label, uncontrolled, multicenter phase II study to evaluate the efficacy and toxicity of cetuximab as a single agent in patients with recurrent and/or metastatic squamous cell carcinoma of the head and neck who failed to respond to platinum-based therapy. J Clin Oncol 2007;25:2171−7
+    - Download failed after OA fallback chain. Details: unpaywall: resolved OA URL but download failed
+    - matched 'Open-Label, Uncontrolled, Multicenter Phase II Study to Evaluate the Efficacy and Toxicity of Cetuximab As a Single Agent in Patients With Recurrent and/or Metastatic Squamous Cell Carcinoma of the Head and Neck Who Failed to Respond to Platinum-Based Therapy' (10.1200/jco.2006.06.7447) but not OA-downloadable (paywalled or not OA-indexed)
+[17/19] ✓ Ferris R., Blumenschein G., Fayette J. et al. Nivolumab for recurrent squamous-cell carcin
+  ✓ downdown/unpaywall_10.1056_nejmoa1602252.pdf (640 KB)
+    matched: Nivolumab for Recurrent Squamous-Cell Carcinoma of the Head and Neck  [crossref, conf=1.0, fuzzy]
+    verify: verified (title/author found in PDF text)
+[18/19] ✓ Ye W., Schmitt, N. C. (2019). Pembrolizumab for recurrent/metastatic head and neck cancer:
+  ✓ downdown/europepmc_PMID_31032295.pdf (116 KB)
+    verify: verified (title/author found in PDF text)
+[19/19] ✗ Machiels J.P., Haddad R.I., Fayette J. et al. Afatinib versus methotrexate as second-line 
+  ✗ failed to download: Machiels J.P., Haddad R.I., Fayette J. et al. Afatinib versus methotrexate as second-line treatment in patients with recurrent or metastatic squamous-cell carcinoma of the head and neck progressing on or after platinum-based therapy (LUX-Head & Neck 1): an open-label, randomised phase 3 trial. Lancet Oncol 2015;16:583−94s
+    - Download failed after OA fallback chain. Details: unpaywall: no OA URL found (or PAPER_SEARCH_MCP_UNPAYWALL_EMAIL/UNPAYWALL_EMAIL missing)
+    - matched 'Afatinib versus methotrexate as second-line treatment in patients with recurrent or metastatic squamous-cell carcinoma of the head and neck progressing on or after platinum-based therapy (LUX-Head & Neck 1): an open-label, randomised phase 3 trial' (10.1016/s1470-2045(15)70124-5) but not OA-downloadable (paywalled or not OA-indexed)
+=== done: downloaded 4/19 · ambiguous 3 · failed 12 ===

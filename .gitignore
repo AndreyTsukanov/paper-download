@@ -1,0 +1,17 @@
+# Secrets — never commit. Use .env.example as the template.
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Local test scratch / downloaded papers
+tests/_session*
+tests/_final*
+tests/downloads*
+tests/rubish
+*.pdf
+manifest.jsonl
+.claude

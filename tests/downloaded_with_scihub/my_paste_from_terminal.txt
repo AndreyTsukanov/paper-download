@@ -1,0 +1,320 @@
+python3 -m grab.cli --out downdownsci --batch tests/test_papers.txt -
+-scihub
+[05/31/26 02:37:54] WARNING  No CORE API key provided. Searches may be rate-limited or return limited results.                       core.py:40
+                    WARNING  No DOAJ API key provided. Searches will use public access with rate limits (100 requests/hour). Get a   doaj.py:48
+                             free API key at: https://doaj.org/apply-for-api-key/                                                              
+grab batch: 19 citations -> downdownsci [--scihub]
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+[05/31/26 02:38:24] ERROR    Error requesting API: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read timed    semantic.py:257
+                             out. (read timeout=30)                                                                                            
+                    ERROR    Semantic Scholar API error: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read    semantic.py:322
+                             timed out. (read timeout=30)                                                                                      
+                    INFO     DOI 10.1056/nejmoa0802656 belongs to paywalled publisher 'NEJM', skipping OA chain                   server.py:994
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+[1/19] ✓ Vermorken J.B., Mesia R., Rivera F. et al. Platinum-based chemotherapy plus cetuximab in h
+  ✓ downdownsci/6b7adb5b_vermorken2008.pdf (548 KB)
+    matched: Platinum-Based Chemotherapy plus Cetuximab in Head and Neck Cancer  [crossref, conf=1.0, fuzzy]
+    verify: verified (title/author found in PDF text)
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+[05/31/26 02:38:54] ERROR    Error requesting API: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read timed    semantic.py:257
+                             out. (read timeout=30)                                                                                            
+                    ERROR    Semantic Scholar API error: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read    semantic.py:322
+                             timed out. (read timeout=30)                                                                                      
+[05/31/26 02:38:56] INFO     HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"                    _client.py:1025
+                    INFO     DOI 10.1200/jco.2012.30.15_suppl.5505 belongs to paywalled publisher 'ASCO (American Society of      server.py:994
+                             Clinical Oncology)', skipping OA chain                                                                            
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+                    ERROR    Could not find PDF URL for identifier: 10.1200/jco.2012.30.15_suppl.5505                             sci_hub.py:50
+[2/19] ✗ Guigay J, Fayette J, Dillies A-F, et al. Cetuximab, docetaxel, and cisplatin (TPEx) as fir
+  ✗ failed to download: Guigay J, Fayette J, Dillies A-F, et al. Cetuximab, docetaxel, and cisplatin (TPEx) as first-line treatment in patients with recurrent or metastatic (R/M) squamous cell carcinoma of the head and neck (SCCHN): Final results of phase II trial GORTEC 2008-03 [abstract]. J Clin Oncol 2012;30(suppl 15):Abstract 5505.
+    - Download failed (paywalled publisher, OA chain skipped). Details: skipped OA chain: paywalled publisher (ASCO (American Society of Clinical Oncology)) | sci-hub: download failed for paywalled paper
+    - matched 'Cetuximab, docetaxel, and cisplatin (TPEx) as first-line treatment in patients with recurrent or metastatic (R/M) squamous cell carcinoma of the head and neck (SCCHN): Final results of phase II trial GORTEC 2008-03.' (10.1200/jco.2012.30.15_suppl.5505) but not OA-downloadable (paywalled or not OA-indexed)
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+[05/31/26 02:38:57] WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:39:03] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:39:13] ERROR    Rate limited (429) after 3 attempts. Please wait before making more requests.                      semantic.py:203
+                    ERROR    Rate limited by Semantic Scholar API: Too many requests. Please wait before retrying.              semantic.py:320
+[05/31/26 02:39:15] INFO     HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"                    _client.py:1025
+                    INFO     DOI 10.1200/jco.2005.02.4646 belongs to paywalled publisher 'ASCO (American Society of Clinical      server.py:994
+                             Oncology)', skipping OA chain                                                                                     
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+[3/19] ✓ Burtness B., Goldwasser M.A., Flood W. et al. Phase III randomized trial of cisplatin plus
+  ✓ downdownsci/ef15978f_burtness2005.pdf (173 KB)
+    matched: Phase III Randomized Trial of Cisplatin Plus Placebo Compared With Cisplatin Plus Cetuximab in Metastatic/Recurrent Head and Neck Cancer: An Eastern Cooperative Oncology Group Study  [crossref, conf=1.0, llm]
+    verify: verified (title/author found in PDF text)
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+                    WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:39:21] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:39:31] ERROR    Rate limited (429) after 3 attempts. Please wait before making more requests.                      semantic.py:203
+                    ERROR    Rate limited by Semantic Scholar API: Too many requests. Please wait before retrying.              semantic.py:320
+[05/31/26 02:39:34] INFO     HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"                    _client.py:1025
+[4/19] ? Болотина Л.В., Владимирова Л.Ю., Деньгина Н.В., Кутукова С.И., Новик А.В., Романов И.С. Пр
+  ? ambiguous: Болотина Л.В., Владимирова Л.Ю., Деньгина Н.В., Кутукова С.И., Новик А.В., Романов И.С. Практические рекомендации по лекарственному лечению опухолей головы и шеи. Практические рекомендации RUSSCO, часть 1. Злокачественные опухоли, 2023 (том 13), #3s2, стр. 100–119.
+    candidates (pass a DOI/arXiv ID to pick one, or set GRAB_LLM_PROVIDER in .env):
+      [0.875] Практические рекомендации по лечению злокачественных опухолей головы и шеи  (10.18027/2224-5057-2022-12-3s2-94-112) [crossref]
+      [0.875] Практические рекомендации по лечению злокачественных опухолей головы и шеи  (10.18027/2224-5057-2021-11-3s2-06) [crossref]
+      [0.875] Практические рекомендации по лечению злокачественных опухолей головы и шеи  (10.18027/2224-5057-2020-10-3s2-06) [crossref]
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+                    WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:40:09] ERROR    Error requesting API: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read timed    semantic.py:257
+                             out. (read timeout=30)                                                                                            
+                    ERROR    Semantic Scholar API error: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read    semantic.py:322
+                             timed out. (read timeout=30)                                                                                      
+[05/31/26 02:40:11] INFO     HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"                    _client.py:1025
+                    INFO     DOI 10.1016/j.ijrobp.2015.12.250 belongs to paywalled publisher 'Elsevier', skipping OA chain        server.py:994
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+[5/19] ✓ Narveson L, Kathol E, Rockey M, Henry D, Grauer D, Neupane P.Evaluation of weekly paclitax
+  ✓ downdownsci/280f0ff7_narveson2016.pdf (69 KB)
+    matched: Evaluation of Weekly Paclitaxel, Carboplatin, and Cetuximab in Head and Neck Cancer Patients With Incurable Disease  [crossref, conf=1.0, llm]
+    verify: verified (title/author found in PDF text)
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+[05/31/26 02:40:12] WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:40:17] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:40:28] ERROR    Rate limited (429) after 3 attempts. Please wait before making more requests.                      semantic.py:203
+                    ERROR    Rate limited by Semantic Scholar API: Too many requests. Please wait before retrying.              semantic.py:320
+                    INFO     DOI 10.1200/jco.2005.01.057 belongs to paywalled publisher 'ASCO (American Society of Clinical       server.py:994
+                             Oncology)', skipping OA chain                                                                                     
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+[6/19] ✓ Gibson MK, Li Y, Murphy B, et al. Randomized phase III evaluation of cisplatin plus fluoro
+  ✓ downdownsci/5c866ed4_gibson2005.pdf (135 KB)
+    matched: Randomized Phase III Evaluation of Cisplatin Plus Fluorouracil Versus Cisplatin Plus Paclitaxel in Advanced Head and Neck Cancer (E1395): An Intergroup Trial of the Eastern Cooperative Oncology Group  [crossref, conf=1.0, fuzzy]
+    verify: verified (title/author found in PDF text)
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+                    WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:40:34] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:40:44] ERROR    Rate limited (429) after 3 attempts. Please wait before making more requests.                      semantic.py:203
+                    ERROR    Rate limited by Semantic Scholar API: Too many requests. Please wait before retrying.              semantic.py:320
+                    INFO     DOI 10.1200/jco.1992.10.8.1245 belongs to paywalled publisher 'ASCO (American Society of Clinical    server.py:994
+                             Oncology)', skipping OA chain                                                                                     
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.cat'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+[7/19] ✓ Forastiere A.A., Metch B., Schuller D.E. et al. Randomized comparison of cisplatin plus fl
+  ✓ downdownsci/15cc702e_forastiere1992.pdf (621 KB)
+    matched: Randomized comparison of cisplatin plus fluorouracil and carboplatin plus fluorouracil versus methotrexate in advanced squamous-cell carcinoma of the head and neck: a Southwest Oncology Group study.  [crossref, conf=1.0, fuzzy]
+    verify: verified (title/author found in PDF text)
+[05/31/26 02:40:45] WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+                    WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:40:51] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:41:01] ERROR    Rate limited (429) after 3 attempts. Please wait before making more requests.                      semantic.py:203
+                    ERROR    Rate limited by Semantic Scholar API: Too many requests. Please wait before retrying.              semantic.py:320
+[05/31/26 02:41:02] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=10.1023%2Fa%3A1008355315205&page=1&size=3                
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=10.1023%2Fa%3A1008355315205                  
+[05/31/26 02:41:04] INFO     Found 1 papers from OpenAIRE for query: Phase II study of docetaxel and cisplatin in patients with openaire.py:293
+                             recurrent or disseminated squamous-cell carcinoma of the head and neck                                            
+[05/31/26 02:41:05] INFO     CORE search returned 0 papers for query: 10.1023/a:1008355315205                                       core.py:146
+                    INFO     CORE search returned 2 papers for query: Phase II study of docetaxel and cisplatin in patients with    core.py:146
+                             recurrent or disseminated squamous-cell carcinoma of the head and neck                                            
+[05/31/26 02:41:06] INFO     Europe PMC search returned 1 papers for query: 10.1023/a:1008355315205                             europepmc.py:86
+[05/31/26 02:41:07] INFO     Europe PMC search returned 3 papers for query: Phase II study of docetaxel and cisplatin in        europepmc.py:86
+                             patients with recurrent or disseminated squamous-cell carcinoma of the head and neck                              
+                    INFO     No PMC results found for query: 10.1023/a:1008355315205                                                  pmc.py:66
+[05/31/26 02:41:09] INFO     HTTP Request: GET https://doi.org/10.1023/a:1008355315205 "HTTP/1.1 302 Found"                     _client.py:1740
+[05/31/26 02:41:10] INFO     HTTP Request: GET https://linkinghub.elsevier.com/retrieve/pii/S0923753419553923 "HTTP/1.1 200 "   _client.py:1740
+                    WARNING  Resolved URL is not a PDF: https://doi.org/10.1023/a:1008355315205                                   server.py:280
+                             (content-type=text/html;charset=utf-8, starts=b'\n\n\n\n\n\n\n\n\n<!DOCTYPE H')                                   
+                    INFO     Direct download failed; retrying via proxy: https://doi.org/10.1023/a:1008355315205                  server.py:317
+[05/31/26 02:41:11] INFO     HTTP Request: GET https://doi.org/10.1023/a:1008355315205 "HTTP/1.1 302 Found"                     _client.py:1740
+[05/31/26 02:41:12] INFO     HTTP Request: GET https://linkinghub.elsevier.com/retrieve/pii/S0923753419553923 "HTTP/1.1 200 "   _client.py:1740
+                    WARNING  Resolved URL is not a PDF: https://doi.org/10.1023/a:1008355315205                                   server.py:280
+                             (content-type=text/html;charset=utf-8, starts=b'\n\n\n\n\n\n\n\n\n<!DOCTYPE H')                                   
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.cat'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+[8/19] ✓ Specht L, Larsen SK, Hansen HS Phase II study of docetaxel and cisplatin in patients with 
+  ✓ downdownsci/a89220ae_specht2000.pdf (514 KB)
+    matched: Phase II study of docetaxel and cisplatin in patients with recurrent or disseminated squamous-cell carcinoma of the head and neck  [crossref, conf=1.0, fuzzy]
+    verify: verified (title/author found in PDF text)
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+[05/31/26 02:41:42] ERROR    Error requesting API: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read timed    semantic.py:257
+                             out. (read timeout=30)                                                                                            
+                    ERROR    Semantic Scholar API error: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read    semantic.py:322
+                             timed out. (read timeout=30)                                                                                      
+                    INFO     DOI 10.1056/nejmoa1602252 belongs to paywalled publisher 'NEJM', skipping OA chain                   server.py:994
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.cat'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+[9/19] ✓ Ferris R., Blumenschein G., Fayette J. et al. Nivolumab for recurrent squamous-cell carcin
+  ✓ downdownsci/77e94480_ferris2016.pdf (534 KB)
+    matched: Nivolumab for Recurrent Squamous-Cell Carcinoma of the Head and Neck  [crossref, conf=1.0, fuzzy]
+    verify: verified (title/author found in PDF text)
+[05/31/26 02:41:43] INFO     DOI 10.1016/s0140-6736(18)31999-8 belongs to paywalled publisher 'Elsevier', skipping OA chain       server.py:994
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.cat'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+[10/19] ✓ Сohen, E. E. W., Soulières, D., Le Tourneau, C., et al. (2018). Pembrolizumab versus metho
+  ✓ downdownsci/22556f58_cohen2019.pdf (620 KB)
+    verify: verified (title/author found in PDF text)
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+[05/31/26 02:42:13] ERROR    Error requesting API: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read timed    semantic.py:257
+                             out. (read timeout=30)                                                                                            
+                    ERROR    Semantic Scholar API error: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read    semantic.py:322
+                             timed out. (read timeout=30)                                                                                      
+                    INFO     DOI 10.1200/jco.2016.68.1478 belongs to paywalled publisher 'ASCO (American Society of Clinical      server.py:994
+                             Oncology)', skipping OA chain                                                                                     
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.cat'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+[11/19] ✓ Сhow L.Q., Haddad R., Gupta S. et al. Antitumor activity of pembrolizumab in biomarker-uns
+  ✓ downdownsci/92c7b800_chow2016.pdf (748 KB)
+    matched: Antitumor Activity of Pembrolizumab in Biomarker-Unselected Patients With Recurrent and/or Metastatic Head and Neck Squamous Cell Carcinoma: Results From the Phase Ib KEYNOTE-012 Expansion Cohort  [crossref, conf=1.0, fuzzy]
+    verify: verified (title/author found in PDF text)
+[05/31/26 02:42:14] WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+                    WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:42:20] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:42:30] ERROR    Rate limited (429) after 3 attempts. Please wait before making more requests.                      semantic.py:203
+                    ERROR    Rate limited by Semantic Scholar API: Too many requests. Please wait before retrying.              semantic.py:320
+                    INFO     DOI 10.1200/jco.2018.36.15_suppl.3062 belongs to paywalled publisher 'ASCO (American Society of      server.py:994
+                             Clinical Oncology)', skipping OA chain                                                                            
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+[05/31/26 02:42:31] ERROR    Could not find PDF URL for identifier: 10.1200/jco.2018.36.15_suppl.3062                             sci_hub.py:50
+[12/19] ✗ Lala M, Li M, Sinha V, de Alwis D, Chartash E, Jain L. A six-weekly (Q6W) dosing schedule 
+  ✗ failed to download: Lala M, Li M, Sinha V, de Alwis D, Chartash E, Jain L. A six-weekly (Q6W) dosing schedule for pembrolizumab based on an exposure-response (E-R) evaluation using modeling and simulation. J Clin Oncol. 2018;36 (suppl; abstr 306)
+    - Download failed (paywalled publisher, OA chain skipped). Details: skipped OA chain: paywalled publisher (ASCO (American Society of Clinical Oncology)) | sci-hub: download failed for paywalled paper
+    - matched 'A six-weekly (Q6W) dosing schedule for pembrolizumab based on an exposure-response (E-R) evaluation using modeling and simulation.' (10.1200/jco.2018.36.15_suppl.3062) but not OA-downloadable (paywalled or not OA-indexed)
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+                    WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:42:36] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:42:47] ERROR    Rate limited (429) after 3 attempts. Please wait before making more requests.                      semantic.py:203
+                    ERROR    Rate limited by Semantic Scholar API: Too many requests. Please wait before retrying.              semantic.py:320
+[05/31/26 02:42:49] INFO     HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"                    _client.py:1025
+[13/19] ? Burtness B, Harrington KJ, Greil R, et al. Pembrolizumab alone or with chemotherapy versus
+  ? ambiguous: Burtness B, Harrington KJ, Greil R, et al. Pembrolizumab alone or with chemotherapy versus cetuximab with chemotherapy for recurrent or metastatic squamous cell carcinoma of the head and neck (KEYNOTE-048): a randomised, open-label, phase 3 study. Lancet 2019;394:1915-1928
+    candidates (pass a DOI/arXiv ID to pick one, or set GRAB_LLM_PROVIDER in .env):
+      [0.688] Phase 3 trial of pembrolizumab as a first-line treatment in subjects with recurrent/metastatic head and neck squamous cell carcinoma: KEYNOTE-048  (10.1093/annonc/mdv514.01) [crossref]
+      [0.6] Pembrolizumab with or without chemotherapy versus cetuximab plus chemotherapy to treat recurrent or metastatic head and neck squamous cell carcinoma: An updated KEYNOTE-048 based cost-effectiveness analysis  (10.1016/j.oraloncology.2022.105871) [crossref]
+      [0.522] Faculty Opinions recommendation of Pembrolizumab Alone or With Chemotherapy for Recurrent/Metastatic Head and Neck Squamous Cell Carcinoma in KEYNOTE-048: Subgroup Analysis by Programmed Death Ligand-1 Combined Positive Score.  (10.3410/f.741913720.793599653) [crossref]
+[05/31/26 02:42:50] WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+                    WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:42:56] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:43:06] ERROR    Rate limited (429) after 3 attempts. Please wait before making more requests.                      semantic.py:203
+                    ERROR    Rate limited by Semantic Scholar API: Too many requests. Please wait before retrying.              semantic.py:320
+[05/31/26 02:43:08] INFO     HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"                    _client.py:1025
+[14/19] ? Al-Sarraf M, Metch B, Kish J, et al. Platinum analogs in recurrent and advanced head and n
+  ? ambiguous: Al-Sarraf M, Metch B, Kish J, et al. Platinum analogs in recurrent and advanced head and neck cancer: a Southwest Oncology Group and Wayne State University Study. Cancer Treat Rep 1987;71:723-726.
+    candidates (pass a DOI/arXiv ID to pick one, or set GRAB_LLM_PROVIDER in .env):
+      [0.667] The Wayne State University Experience with Adjuvant Chemotherapy of Head and Neck Cancer  (10.1016/s0889-8588(18)30409-x) [crossref]
+      [0.5] The activity of a single-agent 5-fluorouracil infusion in advanced and recurrent head and neck cancer  (10.1002/1097-0142(19860315)57:6<1105::aid-cncr2820570607>3.0.co;2-w) [crossref]
+      [0.4] Cisplatin and 5-fluorouracil infusion in patients with recurrent and disseminated epidermoid cancer of the head and neck  (10.1002/1097-0142(19840501)53:9<1819::aid-cncr2820530903>3.0.co;2-r) [crossref]
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+[05/31/26 02:43:38] ERROR    Error requesting API: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read timed    semantic.py:257
+                             out. (read timeout=30)                                                                                            
+                    ERROR    Semantic Scholar API error: HTTPSConnectionPool(host='api.semanticscholar.org', port=443): Read    semantic.py:322
+                             timed out. (read timeout=30)                                                                                      
+[05/31/26 02:43:40] INFO     HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"                    _client.py:1025
+[05/31/26 02:43:41] WARNING  OpenAIRE v2 XML search failed, attempting legacy parser fallback: 409 Client Error: Conflict for   openaire.py:297
+                             url:                                                                                                              
+                             https://api.openaire.eu/search/researchProducts?keywords=10.3109%2F00016480802590451&page=1&size=3                
+                    ERROR    OpenAIRE API request error: 400 Client Error: Bad Request for url:                                 openaire.py:319
+                             https://api.openaire.eu/search/publications?size=3&format=json&query=10.3109%2F00016480802590451                  
+[05/31/26 02:43:42] INFO     Found 1 papers from OpenAIRE for query: Weekly paclitaxel for platin-resistant stage IV head and   openaire.py:293
+                             neck cancer patients                                                                                              
+                    WARNING  CORE request returned 429 (attempt 1/3). Retrying in 1s                                                 core.py:91
+[05/31/26 02:43:43] WARNING  CORE request returned 429 (attempt 2/3). Retrying in 2s                                                 core.py:91
+[05/31/26 02:44:15] WARNING  CORE request timed out (attempt 3/3). Retrying in 4s                                                   core.py:121
+[05/31/26 02:44:20] WARNING  CORE request returned 429 (attempt 1/3). Retrying in 1s                                                 core.py:91
+[05/31/26 02:44:21] WARNING  CORE request returned 429 (attempt 2/3). Retrying in 2s                                                 core.py:91
+[05/31/26 02:44:24] WARNING  CORE request returned 429 (attempt 3/3). Retrying in 4s                                                 core.py:91
+[05/31/26 02:44:28] INFO     Europe PMC search returned 1 papers for query: 10.3109/00016480802590451                           europepmc.py:86
+[05/31/26 02:44:30] INFO     Europe PMC search returned 3 papers for query: Weekly paclitaxel for platin-resistant stage IV     europepmc.py:86
+                             head and neck cancer patients                                                                                     
+                    INFO     No PMC results found for query: 10.3109/00016480802590451                                                pmc.py:66
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+[15/19] ✓ Grau J.J., Caballero M., Verger E. et al. Weekly paclitaxel for platin-resistant stage IV 
+  ✓ downdownsci/1bd3697c_grau2009.pdf (89 KB)
+    matched: Weekly paclitaxel for platin-resistant stage IV head and neck cancer patients  [crossref, conf=1.0, llm]
+    verify: verified (title/author found in PDF text)
+[05/31/26 02:44:32] WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+[05/31/26 02:44:33] WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:44:38] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:44:49] ERROR    Rate limited (429) after 3 attempts. Please wait before making more requests.                      semantic.py:203
+                    ERROR    Rate limited by Semantic Scholar API: Too many requests. Please wait before retrying.              semantic.py:320
+[05/31/26 02:44:51] INFO     HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"                    _client.py:1025
+                    INFO     DOI 10.1200/jco.2006.06.7447 belongs to paywalled publisher 'ASCO (American Society of Clinical      server.py:994
+                             Oncology)', skipping OA chain                                                                                     
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+[16/19] ✓ Vermorken J.B., Trigo J., Hitt R. et al. Open-label, uncontrolled, multicenter phase II st
+  ✓ downdownsci/77901672_vermorken2007.pdf (127 KB)
+    matched: Open-Label, Uncontrolled, Multicenter Phase II Study to Evaluate the Efficacy and Toxicity of Cetuximab As a Single Agent in Patients With Recurrent and/or Metastatic Squamous Cell Carcinoma of the Head and Neck Who Failed to Respond to Platinum-Based Therapy  [crossref, conf=1.0, llm]
+    verify: verified (title/author found in PDF text)
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+                    WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:44:57] WARNING  Rate limited (429). Waiting 10 seconds before retry 2/3                                            semantic.py:197
+[05/31/26 02:45:07] ERROR    Rate limited (429) after 3 attempts. Please wait before making more requests.                      semantic.py:203
+                    ERROR    Rate limited by Semantic Scholar API: Too many requests. Please wait before retrying.              semantic.py:320
+                    INFO     DOI 10.1056/nejmoa1602252 belongs to paywalled publisher 'NEJM', skipping OA chain                   server.py:994
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.cat'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+[17/19] ✓ Ferris R., Blumenschein G., Fayette J. et al. Nivolumab for recurrent squamous-cell carcin
+  ✓ downdownsci/77e94480_ferris2016.pdf (534 KB)
+    matched: Nivolumab for Recurrent Squamous-Cell Carcinoma of the Head and Neck  [crossref, conf=1.0, fuzzy]
+    verify: verified (title/author found in PDF text)
+[05/31/26 02:45:08] INFO     DOI 10.21037/atm.2019.01.46 belongs to paywalled publisher 'AME Publishing', skipping OA chain       server.py:994
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.cat'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+[18/19] ✓ Ye W., Schmitt, N. C. (2019). Pembrolizumab for recurrent/metastatic head and neck cancer:
+  ✓ downdownsci/d6b45380_ye2019.pdf (116 KB)
+    verify: verified (title/author found in PDF text)
+                    WARNING  No SEMANTIC_SCHOLAR_API_KEY set or it's empty. Using unauthenticated access with lower rate        semantic.py:153
+                             limits.                                                                                                           
+[05/31/26 02:45:09] WARNING  Rate limited (429). Waiting 5 seconds before retry 1/3                                             semantic.py:197
+[05/31/26 02:45:15] ERROR    Semantic Scholar search error: 'data'                                                              semantic.py:353
+                    INFO     DOI 10.1016/s1470-2045(15)70124-5 belongs to paywalled publisher 'Elsevier', skipping OA chain       server.py:994
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+/data/users/andreyts/myenvs/medenv/lib/python3.11/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'sci-hub.ru'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+[19/19] ✓ Machiels J.P., Haddad R.I., Fayette J. et al. Afatinib versus methotrexate as second-line 
+  ✓ downdownsci/05c23ef6_machiels2015.pdf (435 KB)
+    matched: Afatinib versus methotrexate as second-line treatment in patients with recurrent or metastatic squamous-cell carcinoma of the head and neck progressing on or after platinum-based therapy (LUX-Head & Neck 1): an open-label, randomised phase 3 trial  [crossref, conf=1.0, fuzzy]
+    verify: verified (title/author found in PDF text)
+=== done: downloaded 14/19 · ambiguous 3 · failed 2 ===
+(log: downdownsci/run.log · manifest: downdownsci/manifest.jsonl)s

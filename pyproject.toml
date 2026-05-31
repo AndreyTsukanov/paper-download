@@ -1,0 +1,32 @@
+[project]
+name = "paper-grab"
+version = "0.1.0"
+description = "OA-first downloader for a specific academic paper: deterministic Python core + LLM disambiguation."
+requires-python = ">=3.10"
+dependencies = [
+    "anthropic>=0.40",
+    "openai>=1.0",
+    "python-dotenv",
+    # vendored paper_search_mcp's own dependencies (see grab/_vendor/NOTICE.md)
+    "beautifulsoup4>=4.12.0",
+    "fastmcp",
+    "feedparser",
+    "httpx[socks]>=0.28.1",
+    "lxml>=4.9.0",
+    "mcp[cli]>=1.6.0",
+    "pypdf",
+    "requests",
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.scripts]
+grab = "grab.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["grab*"]
