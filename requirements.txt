@@ -6,6 +6,7 @@
 anthropic==0.83.0
 openai==2.32.0
 python-dotenv==1.2.2
+
 # vendored paper_search_mcp's own dependencies (see grab/_vendor/NOTICE.md)
 beautifulsoup4==4.14.3
 fastmcp==3.2.4
