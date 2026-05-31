@@ -7,7 +7,7 @@ from pathlib import Path
 
 # Load .env from project root (where pyproject.toml lives)
 from dotenv import load_dotenv
-load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+load_dotenv(Path(__file__).resolve().parent.parent / ".env", override=True)
 
 # Capture the proxy before stripping the standard proxy vars below. Two scoped uses:
 #   GRAB_LLM_PROXY      -> the OpenAI client (only reachable via the proxy here)

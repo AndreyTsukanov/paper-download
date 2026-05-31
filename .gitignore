@@ -12,6 +12,5 @@ tests/_session*
 tests/_final*
 tests/downloads*
 tests/rubish
-*.pdf
 manifest.jsonl
 .claude
