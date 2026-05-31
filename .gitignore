@@ -11,7 +11,7 @@ __pycache__/
 tests/_session*
 tests/_final*
 tests/downloads*
-tests/rubish
+tests/rubbish
 manifest.jsonl
 .claude
 *.pdf
