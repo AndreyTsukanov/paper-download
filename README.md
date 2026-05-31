@@ -12,13 +12,24 @@ call is made only to disambiguate an ambiguous title; the provider is configurab
 ## Install
 
 ```bash
-~/myenvs/medenv/bin/python -m pip install -e .
+python -m pip install -e .            # installs grab + its dependencies
 ```
 
 This pulls the vendored connectors' dependencies (`requests`, `httpx`, `beautifulsoup4`,
 `lxml`, `pypdf`, `feedparser`, `mcp`, `fastmcp`) plus `anthropic`, `openai`, and
-`python-dotenv`. The `medenv` virtualenv already has them, so you can also run straight
-from source with `PYTHONPATH=.`.
+`python-dotenv`.
+
+If you only want the dependencies (not `grab` itself as a package), install them from
+`requirements.txt` and run from source with `PYTHONPATH=.`:
+
+```bash
+python -m pip install -r requirements.txt
+PYTHONPATH=. python -m grab.cli "1706.03762"
+```
+
+`requirements.txt` lists the same runtime dependencies as `pyproject.toml`, but
+**pinned to exact versions** (a known-working set) for a reproducible install — use it
+when you want the environment frozen rather than resolved against the latest releases.
 
 Configuration (provider, keys, model, optional proxy) is read from a `.env` in the project
 root. Copy the template to start:
@@ -39,7 +50,7 @@ grab "26017442"                         # PMID
 grab "Attention is all you need"        # title
 grab "10.1234/paywalled" --scihub       # allow Sci-Hub fallback
 grab "..." --out ~/papers               # choose output dir (default ~/Downloads/papers)
-grab --batch tests/PAPERS_FROM_NINEL.txt --out ~/papers  # download many (citations separated by blank lines)
+grab --batch papers.txt --out ~/papers  # download many (citations separated by blank lines)
 ```
 
 On success it prints the saved path and size, and appends a record to

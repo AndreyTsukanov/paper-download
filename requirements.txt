@@ -1,0 +1,17 @@
+# Pinned runtime dependencies — a known-working set (reproducible install).
+# Prefer `pip install -e .` for development (pyproject.toml keeps loose >= floors);
+# use this file for a reproducible environment:
+#   pip install -r requirements.txt
+# Versions captured from a working install; bump deliberately, not automatically.
+anthropic==0.83.0
+openai==2.32.0
+python-dotenv==1.2.2
+# vendored paper_search_mcp's own dependencies (see grab/_vendor/NOTICE.md)
+beautifulsoup4==4.14.3
+fastmcp==3.2.4
+feedparser==6.0.12
+httpx[socks]==0.28.1
+lxml==6.1.0
+mcp[cli]==1.26.0
+pypdf==6.10.2
+requests==2.32.5
