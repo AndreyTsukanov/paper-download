@@ -11,7 +11,7 @@ from .base import PaperSource
 import logging
 from pypdf import PdfReader
 import re
-from ..config import get_env
+from ..config import get_env, SEMANTIC_MAX_RETRIES, SEMANTIC_RETRY_DELAY, SEMANTIC_TIMEOUT
 
 logger = logging.getLogger(__name__)
 
@@ -160,9 +160,9 @@ class SemanticSearcher(PaperSource):
         """
         Make a request to the Semantic Scholar API with optional API key.
         """
-        max_retries = 3
+        max_retries = SEMANTIC_MAX_RETRIES  # grab: centralized in config.py (env-tunable)
         api_key = self.get_api_key()
-        retry_delay = 5 if api_key is None else 2
+        retry_delay = SEMANTIC_RETRY_DELAY
         has_retried_without_key = False
 
         for attempt in range(max_retries):
@@ -170,7 +170,7 @@ class SemanticSearcher(PaperSource):
                 headers = {"x-api-key": api_key} if api_key else {}
                 url = f"{self.SEMANTIC_BASE_URL}/{path}"
                 response = self.session.get(
-                    url, params=params, headers=headers, timeout=30
+                    url, params=params, headers=headers, timeout=SEMANTIC_TIMEOUT
                 )
 
                 if (

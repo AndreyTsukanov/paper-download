@@ -5,6 +5,7 @@ import logging
 from ..paper import Paper
 from .base import PaperSource
 from ..utils import extract_doi
+from ..config import get_env
 
 logger = logging.getLogger(__name__)
 
@@ -152,6 +153,70 @@ class OpenAlexSearcher(PaperSource):
             logger.error(f"OpenAlex search error: {e}")
 
         return papers
+
+    def resolve_oa_pdf_urls(self, doi: str) -> List[str]:
+        """All OA PDF URLs OpenAlex knows for a DOI, repository hosts first, deduped.
+
+        Independent of Unpaywall: OpenAlex often indexes a green-OA copy Unpaywall
+        missed, and its locations carry direct ``pdf_url`` values (its hosted PDF
+        endpoint also sidesteps publisher 403s). Looked up by *exact* DOI, so the
+        caller does not need a fuzzy DOI-gate. (grab addition, not upstream.)
+        """
+        doi = (doi or "").strip().lower()
+        for prefix in ("https://doi.org/", "http://doi.org/", "doi:"):
+            if doi.startswith(prefix):
+                doi = doi[len(prefix):]
+                break
+        if not doi:
+            return []
+
+        params = {}
+        api_key = get_env("OPENALEX_API_KEY", "")
+        if api_key:
+            params["api_key"] = api_key
+        # Reuse the configured contact email for the OpenAlex polite pool.
+        email = get_env("UNPAYWALL_EMAIL", "")
+        if email:
+            params["mailto"] = email
+
+        try:
+            response = self.session.get(
+                f"{self.BASE_URL}/https://doi.org/{doi}", params=params, timeout=30
+            )
+            if response.status_code != 200:
+                logger.warning(
+                    "OpenAlex DOI lookup failed with status %s for %s",
+                    response.status_code, doi,
+                )
+                return []
+            data = response.json()
+        except Exception as e:
+            logger.warning(f"OpenAlex DOI lookup error for {doi}: {e}")
+            return []
+
+        locations = []
+        best = data.get("best_oa_location")
+        if isinstance(best, dict):
+            locations.append(best)
+        for loc in data.get("locations") or []:
+            if isinstance(loc, dict):
+                locations.append(loc)
+
+        def is_repo(loc):
+            source_type = (loc.get("source") or {}).get("type") if isinstance(loc.get("source"), dict) else None
+            return source_type == "repository" or loc.get("version") in ("submittedVersion", "acceptedVersion")
+
+        ordered = sorted(locations, key=lambda loc: 0 if is_repo(loc) else 1)
+
+        urls = []
+        for loc in ordered:
+            candidate = loc.get("pdf_url")
+            if candidate and candidate not in urls:
+                urls.append(candidate)
+        oa_url = (data.get("open_access") or {}).get("oa_url")
+        if oa_url and oa_url not in urls:
+            urls.append(oa_url)
+        return urls
 
     def download_pdf(self, paper_id: str, save_path: str) -> str:
         """
