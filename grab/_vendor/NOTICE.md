@@ -54,4 +54,59 @@ The OA-fallback chain (`download_with_fallback`, `_try_repository_fallback`,
   never the default path. `cli.py` sets `GRAB_DOWNLOAD_PROXY` from the `.env` proxy (the same
   value it captures for the OpenAI client) before stripping the standard proxy vars. *(Added for `grab`.)*
 
-If you re-vendor a newer upstream, re-apply these seven changes.
+- **OpenAlex + Crossref as independent OA-location providers (by exact DOI).** New method
+  `OpenAlexSearcher.resolve_oa_pdf_urls(doi)` (in `academic_platforms/openalex.py`) looks the work
+  up by exact DOI (`works/https://doi.org/<doi>`) and returns every `locations[].pdf_url` +
+  `best_oa_location` + `open_access.oa_url`, repository-version first, de-duplicated (it reads
+  `UNPAYWALL_EMAIL` for the polite pool and an optional `OPENALEX_API_KEY`). `download_with_fallback`
+  gained a block (after the Unpaywall loop, before Sci-Hub) that tries those URLs plus Crossref's
+  exact-DOI `link[]` PDF (`crossref_searcher.get_paper_by_doi(doi).pdf_url`) via `_download_from_url`.
+  Rationale: OpenAlex is an independent OA index that often has a green-OA copy Unpaywall missed
+  (e.g. an institutional-repository handle). Exact-DOI lookup means no fuzzy DOI-gate is needed;
+  content-verify still backstops. *(Added for `grab` — Track 2.)*
+
+- **Fatcat / IA Scholar as a legal OA-location provider (by exact DOI).** New connector
+  `academic_platforms/fatcat.py` (`FatcatResolver.resolve_pdf_urls(doi)`) → Fatcat release lookup
+  (`/v0/release/lookup?doi=…&expand=files`), returns preserved PDF URLs (archive.org / web.archive.org
+  first), deduped. Wired into `download_with_fallback` via the new `_try_fatcat` helper, in the **legal**
+  chain after OpenAlex/Crossref (and, in the paywalled-publisher shortcut, before any shadow source so a
+  legal preserved copy is preferred). Always on, no flag. Graceful skip on error. *(Added for `grab` — Track 3.)*
+- **Generalized shadow fallback: Sci-Hub → SciDB → Nexus, behind one opt-in list.** `download_with_fallback`
+  gained a `shadow_sources: List[str]` param and a `_try_shadow_sources` helper that loops the enabled
+  shadow connectors in order; `_shadow_fetcher` dispatches `scihub`→`SciHubFetcher` (unchanged),
+  `scidb`→`SciDBFetcher` (new `academic_platforms/scidb.py`, Anna's Archive `…/scidb/<doi>`, `GRAB_SCIDB_URL`),
+  `nexus`→`NexusFetcher` (new `academic_platforms/nexus.py`, experimental IPFS/STC, `GRAB_NEXUS_GATEWAY`).
+  The single Sci-Hub tail and the `_is_likely_paywalled` shortcut now both call `_try_shadow_sources`.
+  **Backward-compatible:** `use_scihub`/`scihub_base_url` params are kept; `use_scihub=True` with no list
+  maps to `["scihub"]`, so prior behaviour is identical. Shadow sources are off by default; every shadow
+  PDF is still structurally checked here and content-verified by the pipeline. *(Added for `grab` — Track 4.)*
+
+**Copyright note:** the shadow sources (Sci-Hub, SciDB/Anna's Archive, Nexus/STC) serve paywalled
+content; they are off by default and enabled only by an explicit user opt-in (`--scihub` / `--shadow`).
+Use is the user's responsibility.
+
+- **Centralized, env-tunable network budgets + bounded Semantic Scholar.** `config.py` gained a block
+  of grab tunables (read via `get_env`, override in `.env`): `SEMANTIC_TIMEOUT`/`SEMANTIC_MAX_RETRIES`/
+  `SEMANTIC_RETRY_DELAY`, `FATCAT_CONNECT_TIMEOUT`/`FATCAT_READ_TIMEOUT`/`FATCAT_FAILURE_LIMIT`,
+  `SCIDB_TIMEOUT`, `NEXUS_TIMEOUT`. `semantic.py::request_api` now reads `max_retries`/`retry_delay`/
+  `timeout` from those (was hardcoded `3` / `5`s / `30`s) — unauthenticated Semantic Scholar 429-storms
+  were the dominant time-sink on citation batches; it now fails fast (1 attempt, 10 s) instead of
+  stalling ~25–45 s/paper, with negligible recall impact (Crossref/arXiv answer anyway). `fatcat.py`
+  reads its short timeouts + the circuit-breaker threshold from config (after `FATCAT_FAILURE_LIMIT`
+  consecutive connection failures it disables itself for the run, so a down api.fatcat.wiki costs
+  seconds, not minutes); `scidb.py`/`nexus.py` read their `*_TIMEOUT`. *(Added for `grab` — perf pass.)*
+
+- **Per-source chain trace.** `download_with_fallback` takes an optional `trace: List[str]` and records a
+  `source:outcome` token at every stage (`unpaywall:none`, `openalex:403`, `crossref:none`, `fatcat:down`,
+  `scihub:not found`, `scidb:unreachable`, `nexus:skipped (no GRAB_NEXUS_GATEWAY)`, …) via the `_rec`
+  helper; `_try_shadow_sources`/`_try_fatcat` fill it too. To report honest shadow reasons, `scidb.py` and
+  `nexus.py` set a `last_status` attribute, and `fatcat.py` tracks `_last_unreachable` (so "down" =
+  connection failure is distinguished from "none" = reachable-but-no-PDF). The pipeline surfaces the trace
+  as `result['chain']` (printed as a `chain:` line and stored in the manifest). *(Added for `grab` —
+  visibility pass.)*
+
+Note: logging configuration (verbose library logs by default) and `full_run.log` live in `grab/cli.py`
+(not vendored); the chain `chain:` line + manifest field live in `grab/pipeline.py`/`cli.py`.
+
+If you re-vendor a newer upstream, re-apply these twelve changes (they touch `openalex.py`, `server.py`,
+`config.py`, `semantic.py`, and the new `fatcat.py`/`scidb.py`/`nexus.py` connectors).
