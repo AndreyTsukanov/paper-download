@@ -6,6 +6,7 @@ optional Sci-Hub), which we reuse verbatim and never reimplement. `grab()` is a
 thin module-level wrapper kept for the CLI's import.
 """
 import os
+import re
 import json
 import time
 import html
@@ -36,13 +37,35 @@ def _finalize(result, r):
     return result
 
 
+_VIA_PREFIXES = (
+    ("unpaywall_", "unpaywall"), ("oa_", "openalex/crossref"), ("fatcat_", "fatcat"),
+    ("scidb_", "scidb"), ("nexus_", "nexus"), ("europepmc_", "europepmc"),
+    ("openaire_", "openaire"), ("core_", "core"), ("pmc_", "pmc"),
+)
+
+
+def _infer_via(path, kind):
+    """Best-effort label for which source produced the PDF (from the filename prefix).
+
+    Shadow downloads are self-identifying: SciDB/Nexus files are prefixed, and a bare
+    8-hex hash prefix is Sci-Hub's naming — so the three shadow sources stay distinct.
+    """
+    name = os.path.basename(path or "")
+    for prefix, label in _VIA_PREFIXES:
+        if name.startswith(prefix):
+            return label
+    if re.match(r"^[0-9a-f]{8}_", name):
+        return "scihub"
+    return kind if kind in ("arxiv", "pmid", "doi") else "source-native"
+
+
 class Grabber:
     """Resolve one query to one PDF: classify -> match -> download -> verify -> log."""
 
-    def __init__(self, save_path, *, use_scihub=False, sources=DEFAULT_SOURCES,
+    def __init__(self, save_path, *, shadow_sources=None, sources=DEFAULT_SOURCES,
                  scihub_base_url=None, llm=None, matcher=None, verifier=None):
         self.save_path = os.path.expanduser(save_path)
-        self.use_scihub = use_scihub
+        self.shadow_sources = list(shadow_sources or [])
         self.sources = sources
         self.scihub_base_url = (scihub_base_url or os.environ.get("GRAB_SCIHUB_URL")
                                 or DEFAULT_SCIHUB_URL)
@@ -56,7 +79,7 @@ class Grabber:
         result = {
             "input": query, "kind": kind, "value": value,
             "success": False, "path": None, "size": None,
-            "matched": None, "ambiguous": False, "candidates": [], "errors": [],
+            "matched": None, "ambiguous": False, "candidates": [], "errors": [], "chain": [],
         }
 
         if kind == "arxiv":
@@ -72,6 +95,7 @@ class Grabber:
             return await self._grab_title(value, result)
 
         _finalize(result, r)
+        result["chain"] = getattr(self, "_last_chain", [])
 
         # Content-verify the identifier flows too (title flow already does this in
         # _grab_title). We have no query title in hand, so fetch the canonical one
@@ -107,10 +131,11 @@ class Grabber:
         return ("", "")
 
     async def _download(self, source, *, paper_id="", doi="", title=""):
+        self._last_chain = []  # filled by download_with_fallback (source-by-source outcomes)
         return await ps.download_with_fallback(
             source=source, paper_id=paper_id, doi=doi, title=title,
-            save_path=self.save_path, use_scihub=self.use_scihub,
-            scihub_base_url=self.scihub_base_url,
+            save_path=self.save_path, shadow_sources=self.shadow_sources,
+            scihub_base_url=self.scihub_base_url, trace=self._last_chain,
         )
 
     async def _grab_title(self, title, result):
@@ -150,6 +175,7 @@ class Grabber:
             doi=pick.get("doi", "") or "", title=clean_title,
         )
         _finalize(result, r)
+        result["chain"] = getattr(self, "_last_chain", [])
 
         if result["success"]:
             await self._verify_downloaded(result, clean_title, pick.get("authors", "") or "", title)
@@ -186,13 +212,14 @@ class Grabber:
             )
 
     def _log(self, result):
-        record = {**result, "ts": round(time.time())}
+        via = _infer_via(result.get("path"), result.get("kind")) if result.get("success") else None
+        record = {**result, "via": via, "ts": round(time.time())}
         with open(os.path.join(self.save_path, "manifest.jsonl"), "a", encoding="utf-8") as f:
             f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
 
-async def grab(query, save_path, *, use_scihub=False, sources=DEFAULT_SOURCES, scihub_base_url=None):
+async def grab(query, save_path, *, shadow_sources=None, sources=DEFAULT_SOURCES, scihub_base_url=None):
     """Thin wrapper kept for the CLI: build a Grabber and run one query."""
-    grabber = Grabber(save_path, use_scihub=use_scihub, sources=sources,
+    grabber = Grabber(save_path, shadow_sources=shadow_sources, sources=sources,
                       scihub_base_url=scihub_base_url)
     return await grabber.run(query)
