@@ -20,6 +20,9 @@ from .academic_platforms.pmc import PMCSearcher
 from .academic_platforms.core import CORESearcher
 from .academic_platforms.europepmc import EuropePMCSearcher
 from .academic_platforms.sci_hub import SciHubFetcher
+from .academic_platforms.scidb import SciDBFetcher
+from .academic_platforms.nexus import NexusFetcher
+from .academic_platforms.fatcat import FatcatResolver
 from .academic_platforms.dblp import DBLPSearcher
 from .academic_platforms.openaire import OpenAiresearcher
 from .academic_platforms.citeseerx import CiteSeerXSearcher
@@ -48,6 +51,7 @@ iacr_searcher = IACRSearcher()
 semantic_searcher = SemanticSearcher()
 crossref_searcher = CrossRefSearcher()
 openalex_searcher = OpenAlexSearcher()
+fatcat_resolver = FatcatResolver()
 pmc_searcher = PMCSearcher()
 core_searcher = CORESearcher()
 europepmc_searcher = EuropePMCSearcher()
@@ -918,6 +922,86 @@ async def download_scihub(
     return "Sci-Hub download failed. Try DOI first, then title, or change mirror URL."
 
 
+def _rec(trace, token: str):
+    """Append a `source:outcome` token to the chain trace, if one is being collected.
+
+    The trace makes the download chain visible (which legal/shadow source did what),
+    surfaced by the pipeline as result['chain']. (grab addition, not upstream.)
+    """
+    if trace is not None:
+        trace.append(token)
+
+
+def _shadow_fetcher(name: str, save_path: str, scihub_base_url: str):
+    """Build a shadow-source fetcher by name, or None for an unknown name. (grab.)"""
+    name = (name or "").strip().lower()
+    if name == "scihub":
+        return SciHubFetcher(base_url=scihub_base_url, output_dir=save_path)
+    if name == "scidb":
+        return SciDBFetcher(base_url=os.environ.get("GRAB_SCIDB_URL", "https://annas-archive.se"),
+                            output_dir=save_path)
+    if name == "nexus":
+        return NexusFetcher(output_dir=save_path)  # reads GRAB_NEXUS_GATEWAY
+    return None
+
+
+async def _try_shadow_sources(shadow_sources, identifier, save_path, scihub_base_url, trace=None):
+    """Try each enabled shadow source in order; return the first valid PDF path.
+
+    Shadow sources (Sci-Hub, SciDB, Nexus) are opt-in and off by default. Each
+    result is structurally validated here and content-verified by the pipeline, so
+    a wrong/corrupt shadow PDF is never kept as a success. Records a per-source
+    outcome into `trace`. (grab addition, not upstream.)
+    """
+    identifier = (identifier or "").strip()
+    if not identifier:
+        return None
+    for name in shadow_sources or []:
+        fetcher = _shadow_fetcher(name, save_path, scihub_base_url)
+        if fetcher is None:
+            continue
+        try:
+            result = await asyncio.to_thread(fetcher.download_pdf, identifier)
+        except Exception as exc:
+            logger.warning("Shadow source %s failed for %s: %s", name, identifier, exc)
+            _rec(trace, f"{name}:error")
+            continue
+        if result and _is_valid_pdf(result):
+            _rec(trace, f"{name}:ok")
+            return result
+        # None: prefer the fetcher's self-reported reason. Sci-Hub is reachable here,
+        # so its None almost always means the paper isn't in its (frozen) corpus.
+        status = getattr(fetcher, "last_status", None) or ("not found" if name == "scihub" else "no result")
+        _rec(trace, f"{name}:{status}")
+    return None
+
+
+async def _try_fatcat(doi: str, save_path: str, trace=None):
+    """Legal Fatcat / IA-Scholar preserved-PDF attempt by exact DOI. (grab addition.)"""
+    doi = (doi or "").strip()
+    if not doi:
+        return None
+    try:
+        urls = await asyncio.to_thread(fatcat_resolver.resolve_pdf_urls, doi)
+    except Exception as exc:
+        logger.warning("Fatcat lookup failed for %s: %s", doi, exc)
+        _rec(trace, "fatcat:down")
+        return None
+    if getattr(fatcat_resolver, "_disabled", False) or getattr(fatcat_resolver, "_last_unreachable", False):
+        _rec(trace, "fatcat:down")
+        return None
+    if not urls:
+        _rec(trace, "fatcat:none")
+        return None
+    for url in urls:
+        result = await _download_from_url(url, save_path, f"fatcat_{doi}")
+        if result:
+            _rec(trace, "fatcat:ok")
+            return result
+    _rec(trace, "fatcat:failed")
+    return None
+
+
 @mcp.tool()
 async def download_with_fallback(
     source: str,
@@ -927,21 +1011,32 @@ async def download_with_fallback(
     save_path: str = "./downloads",
     use_scihub: bool = True,
     scihub_base_url: str = "https://sci-hub.ru",
+    shadow_sources: Optional[List[str]] = None,
+    trace: Optional[List[str]] = None,
 ) -> str:
-    """Try source-native download, OA repositories, Unpaywall, then optional Sci-Hub.
+    """Try source-native download, the legal OA chain (repositories, Unpaywall,
+    OpenAlex/Crossref, Fatcat), then optional opt-in shadow sources.
 
     Args:
         source: Source name (arxiv, biorxiv, medrxiv, iacr, semantic, crossref, pubmed, pmc, core, europepmc, citeseerx, doaj, base, zenodo, hal, ssrn).
         paper_id: Source-native paper identifier.
-        doi: Optional DOI used for repository/unpaywall/Sci-Hub fallback.
-        title: Optional title used for repository/Sci-Hub fallback when DOI is unavailable.
+        doi: Optional DOI used for repository/unpaywall/shadow fallback.
+        title: Optional title used for repository/shadow fallback when DOI is unavailable.
         save_path: Directory to save downloaded files.
-        use_scihub: Whether to fallback to Sci-Hub after OA attempts fail.
-        scihub_base_url: Sci-Hub mirror URL for fallback.
+        use_scihub: Legacy flag; True ⇒ Sci-Hub fallback. Superseded by shadow_sources.
+        scihub_base_url: Sci-Hub mirror URL for the 'scihub' shadow source.
+        shadow_sources: Ordered opt-in shadow sources tried last (e.g. ["scihub","scidb","nexus"]).
+            When None, derived from use_scihub for backward compatibility.
     Returns:
         Download path on success or explanatory error message.
     """
     source_name = source.strip().lower()
+
+    # Back-compat: an explicit shadow_sources list wins; otherwise derive it from the
+    # legacy use_scihub boolean (True ⇒ ["scihub"], False ⇒ none).
+    if shadow_sources is None:
+        shadow_sources = ["scihub"] if use_scihub else []
+    shadow_sources = [s.strip().lower() for s in shadow_sources if s and s.strip()]
 
     primary_downloaders = {
         "arxiv": arxiv_searcher.download_pdf,
@@ -968,6 +1063,7 @@ async def download_with_fallback(
         try:
             primary_result = await asyncio.to_thread(primary_downloaders[source_name], paper_id, save_path)
             if isinstance(primary_result, str) and _is_valid_pdf(primary_result):
+                _rec(trace, f"{source_name}:ok")
                 return primary_result
             if isinstance(primary_result, str) and primary_result:
                 primary_error = primary_result
@@ -987,22 +1083,26 @@ async def download_with_fallback(
     if primary_error:
         attempt_errors.append(f"primary: {primary_error}")
 
-    # Smart routing: if DOI belongs to a known paywalled publisher,
-    # skip OA repository + Unpaywall chain and go straight to Sci-Hub.
+    # Smart routing: if DOI belongs to a known paywalled publisher, skip the slow OA
+    # repository + Unpaywall searches. Still try Fatcat first (legal, exact-DOI, holds
+    # preserved copies of old paywalled PDFs) before any opt-in shadow source.
+    # (grab: generalized from Sci-Hub-only to the full shadow list + legal Fatcat.)
     paywalled_publisher = _is_likely_paywalled(doi)
-    if paywalled_publisher and use_scihub:
+    if paywalled_publisher and shadow_sources:
         logger.info("DOI %s belongs to paywalled publisher '%s', skipping OA chain", doi, paywalled_publisher)
-        attempt_errors.append(f"skipped OA chain: paywalled publisher ({paywalled_publisher})")
+        _rec(trace, f"oa-chain:skipped({paywalled_publisher})")
+        fatcat_result = await _try_fatcat(doi, save_path, trace)
+        if fatcat_result:
+            return fatcat_result
         fallback_identifier = (doi or "").strip() or (title or "").strip() or paper_id
-        fetcher = SciHubFetcher(base_url=scihub_base_url, output_dir=save_path)
-        scihub_result = await asyncio.to_thread(fetcher.download_pdf, fallback_identifier)
-        if scihub_result and _is_valid_pdf(scihub_result):
-            return scihub_result
-        attempt_errors.append("sci-hub: download failed for paywalled paper")
-        return "Download failed (paywalled publisher, OA chain skipped). Details: " + " | ".join(attempt_errors)
+        shadow_result = await _try_shadow_sources(shadow_sources, fallback_identifier, save_path, scihub_base_url, trace)
+        if shadow_result:
+            return shadow_result
+        return "Download failed (paywalled publisher; OA chain skipped). Details: " + " · ".join(trace or attempt_errors)
 
     repository_result, repository_error = await _try_repository_fallback(doi, title, save_path)
     if repository_result:
+        _rec(trace, "repos:ok")
         return repository_result
     if repository_error:
         attempt_errors.append(f"repositories: {repository_error}")
@@ -1016,23 +1116,70 @@ async def download_with_fallback(
             for unpaywall_url in unpaywall_urls:
                 unpaywall_result = await _download_from_url(unpaywall_url, save_path, f"unpaywall_{normalized_doi}")
                 if unpaywall_result:
+                    _rec(trace, "unpaywall:ok")
                     return unpaywall_result
+            _rec(trace, "unpaywall:403")
             attempt_errors.append("unpaywall: resolved OA URL but download failed")
         else:
+            _rec(trace, "unpaywall:none")
             attempt_errors.append("unpaywall: no OA URL found (or PAPER_SEARCH_MCP_UNPAYWALL_EMAIL/UNPAYWALL_EMAIL missing)")
     else:
+        _rec(trace, "unpaywall:no-doi")
         attempt_errors.append("unpaywall: DOI not provided")
 
-    if not use_scihub:
-        return "Download failed after OA fallback chain. Details: " + " | ".join(attempt_errors)
+    if normalized_doi:
+        # Independent OA-location providers (grab), recorded separately so each is
+        # visible in the chain: OpenAlex indexes OA copies Unpaywall can miss, and
+        # Crossref exposes text-mining PDF links. Both are exact-DOI ⇒ no fuzzy gate;
+        # content verification in the pipeline still backstops a wrong grab.
+        try:
+            openalex_urls = await asyncio.to_thread(openalex_searcher.resolve_oa_pdf_urls, normalized_doi)
+        except Exception as exc:
+            logger.warning("OpenAlex OA-location lookup failed for %s: %s", normalized_doi, exc)
+            openalex_urls = []
+        if openalex_urls:
+            for oa_url in openalex_urls:
+                oa_result = await _download_from_url(oa_url, save_path, f"oa_{normalized_doi}")
+                if oa_result:
+                    _rec(trace, "openalex:ok")
+                    return oa_result
+            _rec(trace, "openalex:403")
+            attempt_errors.append("openalex: OA links found but download failed")
+        else:
+            _rec(trace, "openalex:none")
+
+        try:
+            crossref_paper = await asyncio.to_thread(crossref_searcher.get_paper_by_doi, normalized_doi)
+            crossref_pdf = (getattr(crossref_paper, "pdf_url", "") or "").strip() if crossref_paper else ""
+        except Exception as exc:
+            logger.warning("Crossref PDF-link lookup failed for %s: %s", normalized_doi, exc)
+            crossref_pdf = ""
+        if crossref_pdf:
+            crossref_result = await _download_from_url(crossref_pdf, save_path, f"oa_{normalized_doi}")
+            if crossref_result:
+                _rec(trace, "crossref:ok")
+                return crossref_result
+            _rec(trace, "crossref:403")
+            attempt_errors.append("crossref: link found but download failed")
+        else:
+            _rec(trace, "crossref:none")
+
+    # Fatcat / IA Scholar — legal preserved (archive.org) copies, exact-DOI. Always
+    # tried (no flag); best for old paywalled journals that have gone dark. (grab addition.)
+    if normalized_doi:
+        fatcat_result = await _try_fatcat(normalized_doi, save_path, trace)
+        if fatcat_result:
+            return fatcat_result
+
+    if not shadow_sources:
+        return "Download failed after the legal OA chain. Details: " + " · ".join(trace or attempt_errors)
 
     fallback_identifier = (doi or "").strip() or (title or "").strip() or paper_id
-    fetcher = SciHubFetcher(base_url=scihub_base_url, output_dir=save_path)
-    fallback_result = await asyncio.to_thread(fetcher.download_pdf, fallback_identifier)
-    if fallback_result:
-        return fallback_result
+    shadow_result = await _try_shadow_sources(shadow_sources, fallback_identifier, save_path, scihub_base_url, trace)
+    if shadow_result:
+        return shadow_result
 
-    return "Download failed after OA fallback chain and Sci-Hub fallback. Details: " + " | ".join(attempt_errors)
+    return "Download failed after the legal OA chain and shadow fallback. Details: " + " · ".join(trace or attempt_errors)
 
 
 @mcp.tool()

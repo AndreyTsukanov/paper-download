@@ -84,3 +84,40 @@ def get_env(name: str, default: Optional[str] = "") -> str:
             return os.environ.get(key, "")
 
     return "" if default is None else str(default)
+
+
+# --- grab tunables: network timeouts / retry budgets (centralized, env-overridable) ---
+# Each is read from the env (via get_env, which also honors a PAPER_SEARCH_MCP_ prefix)
+# with a fast default. Override in .env, e.g. `GRAB_SEMANTIC_TIMEOUT=20`.
+
+def _env_int(name: str, default: int) -> int:
+    raw = get_env(name, "").strip()
+    try:
+        return int(raw) if raw else default
+    except ValueError:
+        return default
+
+
+def _env_float(name: str, default: float) -> float:
+    raw = get_env(name, "").strip()
+    try:
+        return float(raw) if raw else default
+    except ValueError:
+        return default
+
+
+# Semantic Scholar: unauthenticated rate limits make it the slowest title-search
+# source, so keep its retry/timeout budget small (a 429 storm must not stall a batch).
+SEMANTIC_TIMEOUT = _env_int("GRAB_SEMANTIC_TIMEOUT", 10)
+SEMANTIC_MAX_RETRIES = _env_int("GRAB_SEMANTIC_MAX_RETRIES", 1)
+SEMANTIC_RETRY_DELAY = _env_float("GRAB_SEMANTIC_RETRY_DELAY", 2)
+
+# Fatcat / IA Scholar (legal preserved PDFs): real downtime, so short timeouts plus a
+# circuit breaker that disables it after this many consecutive connection failures.
+FATCAT_CONNECT_TIMEOUT = _env_float("GRAB_FATCAT_CONNECT_TIMEOUT", 4)
+FATCAT_READ_TIMEOUT = _env_float("GRAB_FATCAT_READ_TIMEOUT", 6)
+FATCAT_FAILURE_LIMIT = _env_int("GRAB_FATCAT_FAILURE_LIMIT", 2)
+
+# Shadow connectors (opt-in).
+SCIDB_TIMEOUT = _env_int("GRAB_SCIDB_TIMEOUT", 8)
+NEXUS_TIMEOUT = _env_int("GRAB_NEXUS_TIMEOUT", 10)
