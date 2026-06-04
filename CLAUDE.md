@@ -107,7 +107,7 @@ $PY -m pip install -e .
 grab "1706.03762"
 
 # tests (pytest is not in medenv; run each module directly)
-for m in tests.test_classify tests.test_disambiguate tests.test_verify tests.test_landing tests.test_doi_gate; do
+for m in tests.test_classify tests.test_disambiguate tests.test_verify tests.test_landing tests.test_doi_gate tests.test_oa_locations tests.test_shadow_sources; do
   PYTHONPATH=. $PY -c "import $m as t; [getattr(t,n)() for n in dir(t) if n.startswith('test_')]; print('$m ok')"
 done
 ```
@@ -146,9 +146,29 @@ Exit codes: `0` success · `1` download failed (or content verification rejected
   import (and forces the vendored load) to actually stick.
 - **`.env` holds secrets** (API key, proxy credentials). It must **not** be committed — add it
   to `.gitignore`. If a key leaks into history, rotating it is the only real fix.
-- Sci-Hub is OFF by default (`--scihub` to enable), matching the `paper-download` skill. The
-  mirror defaults to `sci-hub.ru` (the old `sci-hub.se` no longer resolves) and is overridable
-  via `GRAB_SCIHUB_URL`.
+- **Shadow sources are OFF by default**, matching the `paper-download` skill. Two opt-in flags:
+  `--scihub` (Sci-Hub only) and `--shadow` (ALL shadow sources, tried in order **scihub → scidb →
+  nexus**). Mirrors/endpoints: `GRAB_SCIHUB_URL` (default `sci-hub.ru`; the old `sci-hub.se` no
+  longer resolves), `GRAB_SCIDB_URL` (default `annas-archive.se`; domain rotates), `GRAB_NEXUS_GATEWAY`
+  (no default — Nexus/STC is experimental and a no-op until set). Threading is a `shadow_sources:
+  list[str]` (cli → `Grabber` → `download_with_fallback._try_shadow_sources`); the legacy
+  `use_scihub=True` still maps to `["scihub"]`. **Fatcat/IA Scholar** (`fatcat.py`, legal preserved
+  archive.org copies) runs in the OA chain **always** (no flag). Every shadow PDF is still
+  content-verified before it counts as success; the manifest records a `via` field (which source won).
+- **Download chain is visible.** `download_with_fallback(trace=…)` records a
+  `source:outcome` token per stage (`unpaywall:none`, `openalex:403`, `fatcat:down`, `scihub:not found`,
+  `scidb:unreachable`, `nexus:skipped …`); `pipeline` surfaces it as `result['chain']` — printed as a
+  `chain:` line and stored in the manifest (`scidb`/`nexus` set `last_status`, `fatcat` tracks
+  `_last_unreachable`, so "down" vs "none" is honest). Batch mode also writes **`full_run.log`** (the full
+  terminal) beside `run.log`.
+- **Library logs are shown; tunables are centralized.** `cli.py::_configure_logging(True)` (called at
+  import) keeps the connectors' library logging visible in the terminal (only `InsecureRequestWarning` is
+  silenced); the clean `run.log` never carries it, and batch mode captures everything in `full_run.log`.
+  Network budgets live in
+  `_vendor/paper_search_mcp/config.py` (env-overridable): `GRAB_SEMANTIC_TIMEOUT/MAX_RETRIES/RETRY_DELAY`
+  (Semantic Scholar is bounded — its unauthenticated 429-storms were the dominant citation-batch
+  time-sink; it now fails fast), `GRAB_FATCAT_CONNECT_TIMEOUT/READ_TIMEOUT/FAILURE_LIMIT` (short timeouts
+  + a circuit breaker that disables a down Fatcat for the run), `GRAB_SCIDB_TIMEOUT`, `GRAB_NEXUS_TIMEOUT`.
 - `PAPER_SEARCH_MCP_UNPAYWALL_EMAIL` is defaulted in `cli.py` so the OA Unpaywall step
   works for plain script runs (the global `~/.claude/.mcp.json` only sets it for the MCP
   subprocess).

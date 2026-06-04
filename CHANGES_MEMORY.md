@@ -212,6 +212,149 @@ nonexistent edition (RUSSCO 2023), a different paper (Al-Sarraf), and an abstrac
 - **R4.2 live:** `grab --batch tests/test_papers.txt --out …/oa2` reproduces all outcomes into a
   tool-written `run.log` + `manifest.jsonl`, no hand-rolled shell driver.
 
+## 4d. Round 5 — OpenAlex + Crossref as independent OA-location providers (Track 2)
+
+A fresh BRAINSTORMING session (2026-05-31) re-diagnosed "non-100% recall": **not a bug.** The
+ad-hoc arXiv test (`2605.28773`) actually *succeeded* (it's a 2026 OA preprint, pulled straight from
+arXiv — misread as a failure). OA-only gave 4/19, `--scihub` 14/19; the 5 misses are 2 ASCO
+*conference abstracts* (no PDF exists anywhere) + 3 index/recall gaps (RUSSCO 2023, KEYNOTE-048,
+Al-Sarraf 1987). A 4-track roadmap was recorded in `BRAIN_STORM.md`. Track 1 (free CORE/Semantic
+keys) is **shelved**: "free" means no charge but **manual approval**, and the user was *denied* —
+which is exactly why Track 2 matters (OpenAlex = instant self-service key / mailto; Crossref polite
+pool = just a mailto; neither needs human approval).
+
+**Track 2 (this round):** add OpenAlex + Crossref as independent OA-location providers in the
+download chain, looked up by **exact DOI** (so no fuzzy DOI-gate needed; content-verify still
+backstops). Vendored edits, logged in `NOTICE.md` (now 8 changes):
+- `academic_platforms/openalex.py`: new `OpenAlexSearcher.resolve_oa_pdf_urls(doi)` →
+  `works/https://doi.org/<doi>`, returns all `locations[].pdf_url` + `best_oa_location` +
+  `open_access.oa_url`, repository-version first, de-duped. Reads `UNPAYWALL_EMAIL` (polite pool) +
+  optional `OPENALEX_API_KEY`.
+- `server.py::download_with_fallback`: new block after the Unpaywall loop, before Sci-Hub — tries
+  the OpenAlex URLs plus Crossref's exact-DOI `link[]` PDF (`crossref_searcher.get_paper_by_doi`).
+- `tests/test_oa_locations.py`: added 3 OpenAlex cases (repo-first ordering, DOI-prefix stripping,
+  404/empty), stubbed session, no network.
+
+### Round 5 test results
+- Offline **6/6** modules (the 5 + `test_oa_locations` with the new OpenAlex cases).
+- **Resolver live (no manually-approved key needed):** OpenAlex returns real URLs — Cohen
+  `10.1016/s0140-6736(18)31999-8` → the UCLouvain **DIAL handle** (a green copy), peerj → doi.org,
+  NEJM/ASCO → publisher links. Confirms it works on the polite-pool mailto alone.
+- **Pipeline:** Cohen downloads + verifies OA-only (604 KB) — chain healthy, **0 wrong PDFs**.
+- **Honest-fail preserved:** for genuinely-paywalled DOIs (Burtness/Gibson/Forastiere/Grau/Machiels
+  `…2015…`) **both** OpenAlex and Crossref return nothing → the block adds nothing and the run
+  honest-fails cleanly (no fabricated success). On *this* oncology batch the incremental recall is
+  ~0 because the remaining items are genuinely paywalled with no green copy; the gain is on corpora
+  where OpenAlex indexes a green copy Unpaywall missed (proven mechanism: Cohen's DIAL handle).
+- Tracks 3 (Fatcat/IA Scholar) and 4 (shadow SciDB/Nexus, opt-in) are deferred to later rounds.
+
+## 4e. Round 6 — Fatcat/IA Scholar (Track 3) + shadow beyond Sci-Hub (Track 4) + `--shadow` flag
+
+Continuation of the same BRAINSTORMING thread (2026-06-03). A **test-on-first-3** of
+`PAPERS_FROM_NINEL.txt` first confirmed Track 2 live in the real pipeline (Vermorken 2008 emitted
+`openalex/crossref: OA links found but download failed` — the new block fires; the 3 are genuinely
+paywalled/abstract so OA recall is correctly ~0). Then Tracks 3 & 4 were implemented.
+
+User decisions: one **`--shadow`** boolean enables ALL shadow sources in order **scihub → scidb →
+nexus**; **`--scihub`** stays as the Sci-Hub-only alias. Track-4 sources = **SciDB + Nexus** (LibGen
+scimag excluded: its corpus is ≤2020 = Sci-Hub's, no gain). Validate on the `PAPERS_FROM_NINEL.txt`
+citations Sci-Hub missed.
+
+**Implementation** (all vendored, logged in `NOTICE.md`, now ten divergences):
+- **Track 3 — Fatcat (legal, always-on).** New `academic_platforms/fatcat.py`
+  (`FatcatResolver.resolve_pdf_urls(doi)` → `/v0/release/lookup?doi=…&expand=files`, preserved
+  archive.org PDFs, archive-first, deduped). New `server._try_fatcat` helper, called in the legal chain
+  after OpenAlex/Crossref **and** inside the `_is_likely_paywalled` shortcut *before* any shadow source
+  (prefer a legal preserved copy). Exact-DOI ⇒ no fuzzy gate; graceful skip on error.
+- **Track 4 — shadow connectors (opt-in, off by default).** New `academic_platforms/scidb.py`
+  (`SciDBFetcher`: `<GRAB_SCIDB_URL>/scidb/<doi>` → generic PDF-link extraction → `%PDF`-validated,
+  direct→`GRAB_DOWNLOAD_PROXY`) and `academic_platforms/nexus.py` (`NexusFetcher`: **experimental**,
+  IPFS/STC has no clean REST, so it's a no-op unless `GRAB_NEXUS_GATEWAY` template is set). SciDB/Nexus
+  files are name-prefixed (`scidb_`/`nexus_`) so provenance stays distinct from Sci-Hub's bare-hash names.
+- **Flag/chain refactor (back-compat).** `download_with_fallback` gained `shadow_sources: List[str]` +
+  `_try_shadow_sources` (loops enabled connectors via `_shadow_fetcher`); the old Sci-Hub tail and the
+  shortcut both route through it. `use_scihub`/`scihub_base_url` kept; `use_scihub=True` (no list) ⇒
+  `["scihub"]` (identical prior behaviour). `cli.py`: `--shadow` (+`--scihub` alias) →
+  `_shadow_sources_from_args`. `pipeline.py`: `Grabber`/`grab()` take `shadow_sources` (not `use_scihub`)
+  and add a **`via`** field to the manifest (which source produced the PDF). The content-verify safety net
+  is unchanged, so a wrong/corrupt shadow PDF is still discarded, never saved as ✓.
+
+### Round 6 test results
+- Offline **7/7**: the 6 prior modules + new `test_shadow_sources` (Fatcat archive-first/dedup/pdf-only,
+  SciDB PDF-link parse + direct-PDF save, `--shadow` flag→list mapping, `via` inference).
+- **Live (reachable parts):** KEYNOTE-048 DOI `--shadow` → ✓ 602 KB, **verify: verified**, `via scihub`
+  (shadow loop end-to-end; content-verify confirmed the right paper). Guigay ASCO-abstract DOI `--shadow`
+  → honest-fail (shortcut → Fatcat skip → scihub/scidb/nexus all fail; no file). Cohen DOI **no flags** →
+  ✓ `via unpaywall` (back-compat / legal chain intact). `via` provenance verified in the manifest.
+- **Sandbox limitation (honest):** from this environment **Fatcat, Anna's Archive (SciDB) and Nexus are
+  unreachable** (network-egress block: connect-timeout/SSL); Sci-Hub and all OA APIs work. So the
+  **unique post-2021 value of SciDB/Nexus (e.g. RUSSCO 2023) was NOT demonstrated here** — they
+  graceful-skip without breaking the run. Validate on a network where those hosts resolve:
+  `PYTHONPATH=. $PY -m grab.cli "<post-2021 DOI>" --shadow --out <dir>` (set `GRAB_SCIDB_URL` to a live
+  mirror if needed). The SciDB PDF-link parser is generic/best-effort and may need selector tuning against
+  a real page; Nexus needs `GRAB_NEXUS_GATEWAY`. **0 wrong PDFs** throughout.
+
+## 4f. Round 6b — speed/quiet pass (comparing `--scihub` vs `--shadow` on the same batch)
+
+A real user run compared `--scihub` (downdownsci) vs `--shadow` (downdownshadow) on the 19-citation
+set: **identical outcomes (14/19 · 3 ambiguous · 2 failed)** — Track 4 added 0 on this pre-2021,
+Sci-Hub-covered corpus (expected; SciDB/Nexus target post-2021, and were network-unreachable). But
+`--shadow` ran ~3× slower (≈23 min vs ≈7.5 min) and the terminal was a wall of warnings. Diagnosis:
+(a) **Fatcat `ConnectTimeout` 15 s × ~16 paywalled DOIs ≈ 4 min** (shadow-specific); (b) the rest was
+**Semantic Scholar** 429-storms + 30 s read-timeouts on the *title-search* path — present in *both*
+runs, contributing ~0 results without a key (Crossref/arXiv answer). Fixes (user picked "bound, don't
+drop" for S2):
+- **Quiet logs by default** (`cli.py::_configure_logging`, called at import so connector import-time
+  warnings are caught too): raises vendored connector + httpx/urllib3 logger levels, silences
+  `InsecureRequestWarning`; terminal then showed only the `✓/?/✗` lines, `run.log` unchanged.
+  *(This quiet-by-default + a `--verbose` toggle were later reverted — see §4h.)*
+- **Centralized, env-tunable network budgets** in vendored `config.py` (see NOTICE). **Semantic Scholar
+  bounded** (`request_api`: 3→`SEMANTIC_MAX_RETRIES=1`, 5/10s→`RETRY_DELAY=2`, 30→`TIMEOUT=10`) →
+  fail-fast instead of stalling. **Fatcat** short timeouts + circuit-breaker (disable after
+  `FATCAT_FAILURE_LIMIT=2` connection failures). SciDB/Nexus timeouts 8/10 s.
+- **Measured:** 3 paywalled DOIs `--shadow` → 10 s, clean output, all verified, `via scihub`. 2 citations
+  `--shadow` → 77 s (was ~3–4 min/2 in the slow run). Offline **7/7**. Env override verified
+  (`GRAB_SEMANTIC_TIMEOUT=20` etc.). Left the two PDF-download `timeout=30`s in `semantic.py` (381/426)
+  alone — not the slowdown. **0 wrong PDFs**, no recall change.
+
+## 4g. Round 6c — chain visibility (why only Sci-Hub showed) + full_run.log
+
+User questions exposed an opacity bug: in the `--shadow` run the log only ever showed `scihub`, and the
+failed abstracts said the opaque `shadow (scihub,scidb,nexus): download failed`. Diagnosis: (a) the
+paywalled-publisher shortcut routes most of this batch straight past the legal OA chain to Fatcat→shadow,
+and Sci-Hub (first in the shadow order) wins, so `via`≈scihub everywhere; (b) **SciDB** failed silently
+(`annas-archive.se` doesn't even resolve — DNS `gaierror`, ~0 s; its failures logged at `debug`) and
+**Nexus** is a no-op without `GRAB_NEXUS_GATEWAY`; only **Sci-Hub** logged loudly (`sci_hub.py` uses bare
+`logging.error`). And "Fatcat is down" = a **connect timeout** to `api.fatcat.wiki` (DNS resolves to an IA
+IP, but :443 doesn't answer while `archive.org`/`scholar.archive.org` connect in 0.2 s → the Fatcat API
+service is down, not a local firewall). The shortcut behaviour was left **as-is** (user's call — keep it).
+
+Fixes (visibility, no recall change):
+- **Per-source chain trace** (`server.py`): `download_with_fallback(trace=[])` records a `source:outcome`
+  token at each stage; `_try_shadow_sources`/`_try_fatcat` fill it; `scidb`/`nexus` expose `last_status`,
+  `fatcat` tracks `_last_unreachable` (so "down" vs "none" is honest). `pipeline` surfaces it as
+  `result['chain']` → a `chain:` line in stdout/run.log + a `chain` field in the manifest. Example fail
+  line: `oa-chain:skipped(ASCO) · fatcat:down · scihub:not found · scidb:unreachable · nexus:skipped (no
+  GRAB_NEXUS_GATEWAY)`. OpenAlex/Unpaywall appear in the chain whenever the legal chain actually runs
+  (OA-only or non-paywalled-publisher flows).
+- **`full_run.log`** (`cli.py::_run_batch`): the complete terminal session (printed blocks + a root
+  `StreamHandler` capturing any library logs) written beside the clean `run.log`.
+- **Root-logger quieting** (`cli.py::_configure_logging`): set the **root** logger to CRITICAL by default
+  (the earlier per-logger approach missed Sci-Hub's bare `logging.error`). The terminal then showed only
+  `✓/?/✗` + `chain:`. *(Reverted to verbose-by-default in §4h.)*
+- Offline **7/7**; live: Vermorken DOI `--shadow` → ✓ `chain: oa-chain:skipped(NEJM) · fatcat:down ·
+  scihub:ok`; Guigay abstract → honest-fail with the full per-source chain; `full_run.log` + manifest
+  `chain`/`via` populated. **0 wrong PDFs**, recall unchanged.
+
+## 4h. Round 6d — verbose logs by default (`--verbose` removed)
+
+User preference: drop the `--verbose` flag and make verbose logging the default. `cli.py` now calls
+`_configure_logging(True)` at import and the `--verbose` argument is gone — the connectors' library logs
+are shown in the terminal again (only `InsecureRequestWarning` stays silenced). `run.log` stays clean and
+`full_run.log` still captures the full terminal; the chain trace, the `config.py` tunables, and Sci-Hub/
+SciDB/Nexus behaviour are unchanged. (The `_configure_logging` quiet branch remains in the file but is no
+longer invoked.) This reverts the quiet-by-default from §4f/§4g — recall and `0 wrong PDFs` unaffected.
+
 ## 5. Design principles (do not regress these)
 
 - **Honest failure > wrong PDF.** Lower apparent recall is fine; the recall removed was fake.
@@ -220,7 +363,8 @@ nonexistent edition (RUSSCO 2023), a different paper (Al-Sarraf), and an abstrac
   never used to rescue a broken/wrong download into success. Optional: no key ⇒ fully free.
 - **Don't touch hermes's `_is_likely_paywalled` / `_is_valid_pdf`** — orthogonal and helpful.
 - **Vendored code stays close to upstream**, functional, every edit recorded in `NOTICE.md`.
-- **Sci-Hub off by default** (`--scihub`), matching the `paper-download` skill.
+- **Shadow sources off by default** (`--scihub` = Sci-Hub only; `--shadow` = Sci-Hub+SciDB+Nexus),
+  matching the `paper-download` skill. Every shadow PDF is content-verified before it counts as success.
 
 ## 6. Known limitations / next ideas
 
@@ -239,7 +383,7 @@ nonexistent edition (RUSSCO 2023), a different paper (Al-Sarraf), and an abstrac
 ## 7. Quick reference
 
 - Run: `PY=~/myenvs/medenv/bin/python; PYTHONPATH=. $PY -m grab.cli "<query>" --out <dir>`
-- Tests: loop `test_classify test_disambiguate test_verify test_landing test_doi_gate` (see CLAUDE.md).
+- Tests: loop `test_classify test_disambiguate test_verify test_landing test_doi_gate test_oa_locations test_shadow_sources` (see CLAUDE.md).
 - Editing the repo from a background session needs `.claude/settings.json` ->
   `{"worktree":{"bgIsolation":"none"}}` (we edit in place because the branch carries uncommitted work;
   a worktree from origin/main would lose it). The setting is read at session start.
